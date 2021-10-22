@@ -1,0 +1,34 @@
+2021-10-22 20:12:25,001 [Worker-6: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2021-10-22 20:15:06,749 [Worker-3: Creating project "MobilePhoneShopProject"] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.mobilephoneshop:MobilePhoneShopProject:0.0.1-SNAPSHOT @ D:\Hoc tap\Nam 4 Hoc ki 1\He thong thong tin doanh nghiep\Do An\enterprise-information-system\MobilePhoneShopProject\pom.xml.
+2021-10-22 20:15:07,718 [Worker-3: Creating project "MobilePhoneShopProject"] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /MobilePhoneShopProject/src/main/java
+2021-10-22 20:15:07,721 [Worker-3: Creating project "MobilePhoneShopProject"] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /MobilePhoneShopProject/src/main/resources
+2021-10-22 20:15:07,722 [Worker-3: Creating project "MobilePhoneShopProject"] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /MobilePhoneShopProject/src/test/java
+2021-10-22 20:15:07,722 [Worker-3: Creating project "MobilePhoneShopProject"] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /MobilePhoneShopProject/src/test/resources
+2021-10-22 20:15:10,617 [Worker-3: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2021-10-22 20:15:10,626 [Worker-3: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2021-10-22 20:15:10,631 [Worker-3: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2021-10-22 20:15:10,632 [Worker-3: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2021-10-22 20:18:10,802 [Worker-13: Import Getting Started Content] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.mobliephoneshop:MobilePhoneShopCommon:0.0.1-SNAPSHOT @ D:\Hoc tap\Nam 4 Hoc ki 1\He thong thong tin doanh nghiep\Do An\enterprise-information-system\MobilePhoneShopProject\MobilePhoneShopCommon\pom.xml.
+2021-10-22 20:18:13,185 [Worker-13: Import Getting Started Content] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /MobilePhoneShopCommon/src/main/java
+2021-10-22 20:18:13,185 [Worker-13: Import Getting Started Content] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /MobilePhoneShopCommon/src/main/resources
+2021-10-22 20:18:13,194 [Worker-13: Import Getting Started Content] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /MobilePhoneShopCommon/src/main/resources
+2021-10-22 20:18:13,206 [Worker-13: Import Getting Started Content] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /MobilePhoneShopCommon/src/test/java
+2021-10-22 20:18:14,351 [Worker-13: Import Getting Started Content] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Imported and configured 1 project(s) in 5 sec
+2021-10-22 20:18:14,357 [Worker-13: Import Getting Started Content] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update started
+2021-10-22 20:18:15,348 [Worker-13: Import Getting Started Content] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.mobliephoneshop:MobilePhoneShopCommon:0.0.1-SNAPSHOT @ D:\Hoc tap\Nam 4 Hoc ki 1\He thong thong tin doanh nghiep\Do An\enterprise-information-system\MobilePhoneShopProject\MobilePhoneShopCommon\pom.xml.
+2021-10-22 20:18:16,790 [Worker-13: Import Getting Started Content] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /MobilePhoneShopCommon/src/main/java
+2021-10-22 20:18:16,791 [Worker-13: Import Getting Started Content] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /MobilePhoneShopCommon/src/main/resources
+2021-10-22 20:18:16,794 [Worker-13: Import Getting Started Content] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /MobilePhoneShopCommon/src/main/resources
+2021-10-22 20:18:16,804 [Worker-13: Import Getting Started Content] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /MobilePhoneShopCommon/src/test/java
+2021-10-22 20:18:17,586 [Worker-13: Import Getting Started Content] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update completed: 3 sec
+2021-10-22 20:18:19,014 [Worker-13: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2021-10-22 20:18:19,014 [Worker-13: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2021-10-22 20:18:19,015 [Worker-13: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2021-10-22 20:18:19,040 [Worker-13: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2021-10-22 20:18:19,048 [Worker-13: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2021-10-22 20:18:19,048 [Worker-13: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2021-10-22 20:18:19,048 [Worker-13: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Hoc tap\Nam 4 Hoc ki 1\He thong thong tin doanh nghiep\Do An\enterprise-information-system\MobilePhoneShopProject\MobilePhoneShopCommon\src\test\resources
+2021-10-22 20:18:19,789 [Worker-13: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2021-10-22 20:18:19,792 [Worker-13: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2021-10-22 20:18:19,794 [Worker-13: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2021-10-22 20:18:19,795 [Worker-13: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
