@@ -1,10 +1,88 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Trang chủ Admin</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, inittial-scale=1.0, minimun-scale=1.0">
+	<title>Trang chủ Admin</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </head>
 <body>
-	<h1>Welcome to Mobile Phone Shop Admin Control Panel</h1>
+
+	<!-- Bắt đầu giao diện chính -->
+	<div class="container-fluid">
+
+		<!-- Bắt đầu Header Menu -->
+		<div>
+			<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+
+				<!-- Bắt đầu Logo -->
+				<a class="navbar-brand" th:href="@{/}"> 
+					<img th:src="@{/images/MobilePhoneShopAdminSmall.png}" />
+				</a>
+				<!-- Kết thúc Logo -->
+				
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavbar">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<!-- Bắt đầu menu -->
+				<div class="collapse navbar-collapse" id="topNavbar">
+					<ul class="navbar-nav">
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/users}">Nhân viên</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/categories}">Phân loại</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/brands}">Hãng</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/products}">Sản phẩm</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/customs}">Khách hàng</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/shipping}">Vận chuyển</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/orders}">Đơn hàng</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/report}">Báo cáo doanh thu</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/articles}">Trang tin</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/menus}">Menus</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/settings}">Chỉnh sửa</a>
+						</li>
+					</ul>
+				</div>
+				<!-- Kết thúc menu -->
+				
+			</nav>
+		</div>
+		<!-- Kết thúc Header Menu -->
+
+		<div>
+			<h1>Chào mừng đến với trang admin</h1>
+		</div>
+
+		<!-- Bắt đầu Footer -->
+		<div>
+			<p>Shop bán điện thoại di dộng - Copyright &copy; Nhóm 11</p>
+		</div>
+		<!-- Kết thúc Footer -->
+
+	</div>
+	<!-- Kết thúc giao diện chính -->
+
 </body>
 </html>
