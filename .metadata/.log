@@ -1591,3 +1591,174 @@ java.util.concurrent.TimeoutException
 
 !ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 10:03:04.301
 !MESSAGE executing callback sts4.classpath.bRoUaTIo SUCCESS [done]
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:26:21.246
+!MESSAGE exists = true open = true => deleted = false
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:26:21.255
+!MESSAGE classpath=74 entries
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:26:21.262
+!MESSAGE buffering callback sts4.classpath.bRoUaTIo MobilePhoneShopBackEnd false 74
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:26:21.263
+!MESSAGE exists = true open = true => deleted = false
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:26:21.270
+!MESSAGE classpath=74 entries
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:26:21.276
+!MESSAGE buffering callback sts4.classpath.bRoUaTIo MobilePhoneShopFrontEnd false 74
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:26:21.276
+!MESSAGE executing callback sts4.classpath.bRoUaTIo 2 batched events
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:26:21.675
+!MESSAGE executing callback sts4.classpath.bRoUaTIo SUCCESS [done]
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2021-10-23 11:26:24.691
+!MESSAGE Could not download sources for org.webjars:popper.js:2.9.3
+!STACK 1
+org.eclipse.core.runtime.CoreException: Could not resolve artifact org.webjars:popper.js:jar:sources:2.9.3
+	at org.eclipse.m2e.core.internal.embedder.MavenImpl.lambda$4(MavenImpl.java:804)
+	at org.eclipse.m2e.core.internal.embedder.MavenExecutionContext.executeBare(MavenExecutionContext.java:179)
+	at org.eclipse.m2e.core.internal.embedder.MavenExecutionContext.execute(MavenExecutionContext.java:114)
+	at org.eclipse.m2e.core.internal.embedder.MavenExecutionContext.execute(MavenExecutionContext.java:101)
+	at org.eclipse.m2e.core.internal.embedder.MavenImpl.resolve(MavenImpl.java:772)
+	at org.eclipse.m2e.core.internal.embedder.MavenImpl.resolve(MavenImpl.java:749)
+	at org.eclipse.m2e.jdt.internal.DownloadSourcesJob.download(DownloadSourcesJob.java:330)
+	at org.eclipse.m2e.jdt.internal.DownloadSourcesJob.downloadAttachments(DownloadSourcesJob.java:304)
+	at org.eclipse.m2e.jdt.internal.DownloadSourcesJob.downloadMaven(DownloadSourcesJob.java:269)
+	at org.eclipse.m2e.jdt.internal.DownloadSourcesJob.downloadFilesAndPopulateToUpdate(DownloadSourcesJob.java:233)
+	at org.eclipse.m2e.jdt.internal.DownloadSourcesJob.lambda$0(DownloadSourcesJob.java:161)
+	at org.eclipse.m2e.core.internal.embedder.MavenExecutionContext.executeBare(MavenExecutionContext.java:179)
+	at org.eclipse.m2e.core.internal.embedder.MavenExecutionContext.execute(MavenExecutionContext.java:153)
+	at org.eclipse.m2e.core.internal.embedder.MavenExecutionContext.execute(MavenExecutionContext.java:101)
+	at org.eclipse.m2e.core.internal.embedder.MavenImpl.execute(MavenImpl.java:1374)
+	at org.eclipse.m2e.jdt.internal.DownloadSourcesJob.run(DownloadSourcesJob.java:161)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+Contains: Missing org.webjars:popper.js:jar:sources:2.9.3
+!SUBENTRY 1 org.eclipse.m2e.core 4 -1 2021-10-23 11:26:24.692
+!MESSAGE Could not resolve artifact org.webjars:popper.js:jar:sources:2.9.3
+!SUBENTRY 2 org.eclipse.m2e.core 4 -1 2021-10-23 11:26:24.692
+!MESSAGE Missing org.webjars:popper.js:jar:sources:2.9.3
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:26:27.365
+!MESSAGE exists = true open = true => deleted = false
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:26:27.371
+!MESSAGE classpath=74 entries
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:26:27.376
+!MESSAGE buffering callback sts4.classpath.bRoUaTIo MobilePhoneShopBackEnd false 74
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:26:27.377
+!MESSAGE executing callback sts4.classpath.bRoUaTIo 1 batched events
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:26:27.405
+!MESSAGE executing callback sts4.classpath.bRoUaTIo SUCCESS [done]
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:26:32.643
+!MESSAGE exists = true open = true => deleted = false
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:26:32.648
+!MESSAGE classpath=74 entries
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:26:32.653
+!MESSAGE buffering callback sts4.classpath.bRoUaTIo MobilePhoneShopFrontEnd false 74
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:26:32.654
+!MESSAGE executing callback sts4.classpath.bRoUaTIo 1 batched events
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:26:32.672
+!MESSAGE executing callback sts4.classpath.bRoUaTIo SUCCESS [done]
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:31:27.791
+!MESSAGE exists = true open = true => deleted = false
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:31:27.797
+!MESSAGE classpath=75 entries
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:31:27.804
+!MESSAGE buffering callback sts4.classpath.bRoUaTIo MobilePhoneShopBackEnd false 75
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:31:27.804
+!MESSAGE executing callback sts4.classpath.bRoUaTIo 1 batched events
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:31:27.832
+!MESSAGE executing callback sts4.classpath.bRoUaTIo SUCCESS [done]
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:31:27.903
+!MESSAGE exists = true open = true => deleted = false
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:31:27.910
+!MESSAGE classpath=75 entries
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:31:27.917
+!MESSAGE buffering callback sts4.classpath.bRoUaTIo MobilePhoneShopFrontEnd false 75
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:31:27.918
+!MESSAGE executing callback sts4.classpath.bRoUaTIo 1 batched events
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:31:28.004
+!MESSAGE executing callback sts4.classpath.bRoUaTIo SUCCESS [done]
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:31:33.453
+!MESSAGE exists = true open = true => deleted = false
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:31:33.460
+!MESSAGE classpath=75 entries
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:31:33.464
+!MESSAGE buffering callback sts4.classpath.bRoUaTIo MobilePhoneShopBackEnd false 75
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:31:33.466
+!MESSAGE exists = true open = true => deleted = false
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:31:33.474
+!MESSAGE classpath=75 entries
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:31:33.478
+!MESSAGE buffering callback sts4.classpath.bRoUaTIo MobilePhoneShopFrontEnd false 75
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:31:33.479
+!MESSAGE executing callback sts4.classpath.bRoUaTIo 2 batched events
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:31:33.535
+!MESSAGE executing callback sts4.classpath.bRoUaTIo SUCCESS [done]
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:35:01.540
+!MESSAGE exists = true open = true => deleted = false
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:35:01.547
+!MESSAGE classpath=77 entries
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:35:01.552
+!MESSAGE buffering callback sts4.classpath.bRoUaTIo MobilePhoneShopBackEnd false 77
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:35:01.552
+!MESSAGE exists = true open = true => deleted = false
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:35:01.558
+!MESSAGE classpath=77 entries
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:35:01.562
+!MESSAGE buffering callback sts4.classpath.bRoUaTIo MobilePhoneShopFrontEnd false 77
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:35:01.563
+!MESSAGE executing callback sts4.classpath.bRoUaTIo 2 batched events
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:35:01.646
+!MESSAGE executing callback sts4.classpath.bRoUaTIo SUCCESS [done]
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:38:17.845
+!MESSAGE ClasspathListenerHandler removeClasspathListener sts4.classpath.bRoUaTIo
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:38:17.846
+!MESSAGE unsubscribing from classpath changes: sts4.classpath.bRoUaTIo
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:38:17.846
+!MESSAGE subsribers = {}
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-10-23 11:38:17.847
+!MESSAGE ClasspathListenerHandler removeClasspathListener sts4.classpath.bRoUaTIo => OK
