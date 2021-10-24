@@ -4701,3 +4701,20 @@ Caused by: org.codehaus.plexus.util.xml.pull.XmlPullParserException: expected ST
 2021-10-24 18:13:43,213 [Worker-84: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Hoc tap\Nam 4 Hoc ki 1\He thong thong tin doanh nghiep\Do An\enterprise-information-system\MobilePhoneShopProject\MobilePhoneShopWebParent\MobilePhoneShopBackEnd\src\test\resources
 2021-10-24 18:13:53,274 [Worker-86: Launching UserRepositoryTests.testCreateUser] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/MobilePhoneShopCommon: com.mobliephoneshop:MobilePhoneShopCommon:0.0.1-SNAPSHOT with classifier null to /MobilePhoneShopCommon/target/classes
 2021-10-24 18:13:53,596 [Worker-86: Launching UserRepositoryTests.testCreateUser] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/MobilePhoneShopCommon: com.mobliephoneshop:MobilePhoneShopCommon:0.0.1-SNAPSHOT with classifier null to /MobilePhoneShopCommon/target/classes
+2021-10-24 19:55:22,377 [Worker-2: Building] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/MobilePhoneShopCommon: com.mobliephoneshop:MobilePhoneShopCommon:0.0.1-SNAPSHOT with classifier  to /MobilePhoneShopCommon/target/classes
+2021-10-24 19:55:22,510 [Worker-2: Building] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/MobilePhoneShopCommon: com.mobliephoneshop:MobilePhoneShopCommon:0.0.1-SNAPSHOT with classifier  to /MobilePhoneShopCommon/target/classes
+2021-10-24 19:55:23,392 [Worker-2: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2021-10-24 19:55:23,392 [Worker-2: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2021-10-24 19:55:23,401 [Worker-2: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2021-10-24 19:55:23,474 [Worker-2: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2 resources
+2021-10-24 19:55:23,488 [Worker-2: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2021-10-24 19:55:23,488 [Worker-2: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2021-10-24 19:55:23,489 [Worker-2: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Hoc tap\Nam 4 Hoc ki 1\He thong thong tin doanh nghiep\Do An\enterprise-information-system\MobilePhoneShopProject\MobilePhoneShopWebParent\MobilePhoneShopBackEnd\src\test\resources
+2021-10-24 19:55:26,333 [Worker-1: Building] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/MobilePhoneShopCommon: com.mobliephoneshop:MobilePhoneShopCommon:0.0.1-SNAPSHOT with classifier  to /MobilePhoneShopCommon/target/classes
+2021-10-24 19:55:33,889 [Worker-0: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2021-10-24 19:55:33,889 [Worker-0: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2021-10-24 19:55:33,891 [Worker-0: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2021-10-24 19:55:33,891 [Worker-0: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2021-10-24 19:55:33,896 [Worker-0: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2021-10-24 19:55:33,896 [Worker-0: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2021-10-24 19:55:33,896 [Worker-0: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Hoc tap\Nam 4 Hoc ki 1\He thong thong tin doanh nghiep\Do An\enterprise-information-system\MobilePhoneShopProject\MobilePhoneShopWebParent\MobilePhoneShopBackEnd\src\test\resources
