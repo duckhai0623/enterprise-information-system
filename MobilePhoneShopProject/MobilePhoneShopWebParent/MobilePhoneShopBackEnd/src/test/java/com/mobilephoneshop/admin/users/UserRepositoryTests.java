@@ -34,4 +34,23 @@ public class UserRepositoryTests
 		User savedUser = userRepository.save(userPhamDucKhai);
 		assertThat(savedUser.getId()).isGreaterThan(0);
 	}
+	
+	@Test
+	public void testCreateNewUserWithTwoRoles()
+	{
+		User test = new User("test@gmail.com","123456","test","test");
+		Role roleEditor = new Role(3);
+		Role roleAssistant = new Role(5);
+		test.addRole(roleEditor);
+		test.addRole(roleAssistant);
+		User savedUser = userRepository.save(test);
+		assertThat(savedUser.getId()).isGreaterThan(0);
+	}
+	
+	@Test
+	public void testListAllUsers()
+	{
+		Iterable<User> listUsers = userRepository.findAll();
+		listUsers.forEach(user -> System.out.println(user));
+	}
 }

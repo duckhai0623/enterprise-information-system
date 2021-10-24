@@ -149,4 +149,12 @@ public class User
 		this.roles.add(role);
 	}
 
+	@Override
+	public String toString()
+	{
+		return "User [email=" + email + ", firstName=" + firstName + ", id=" + id + ", lastName=" + lastName
+				+ ", roles=" + roles + "]";
+	}
+
+	
 }
