@@ -3,7 +3,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, inittial-scale=1.0, minimun-scale=1.0">
-	<title>Trang chủ Admin</title>
+	<title>Quản lý nhân viên</title>
 	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
 	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
 	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
@@ -23,7 +23,7 @@
 				</a>
 				<!-- Kết thúc Logo -->
 				
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavbar">
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 
@@ -72,11 +72,47 @@
 		<!-- Kết thúc Header Menu -->
 
 		<div>
-			<h2>Chào mừng đến với trang admin</h2>
+			<h2>Quản lý nhân viên</h2>
+			<a th:href="@{/users/new}">Thêm nhân viên</a>
 		</div>
+		
+		<!-- Bắt đầu hiển thị thông tin thêm thành công -->
+		<div th:if="${message != null}" class="alert alert-success text-center">
+			[[${message}]]
+		</div>
+		<!-- Kết thúc hiển thị thông tin thêm thành công -->
+		
+		<!-- Bắt đầu tạo bảng chứa thông tin nhân viên -->
+		<div>
+			<table class="table table-bordered table-striped table-hover table-responsive-xl">
+				<thead class="thead-dark">
+					<tr>	
+						<th>Mã nhân viên</th>
+						<th>Ảnh đại diện</th>
+						<th>Họ</th>
+						<th>Tên</th>
+						<th>Chức vụ</th>
+						<th>Cho phép hoạt động</th>
+						<th>Thao tác</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="user : ${listUsers}">
+						 <td>[[${user.id}]]</td>
+						 <td></td>
+						 <td>[[${user.lastName}]]</td>
+						 <td>[[${user.firstName}]]</td>
+						 <td>[[${user.roles}]]</td>
+						 <td>[[${user.enabled}]]</td>
+						 <td>Edit &nbsp; Delete</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!-- Kết thúc tạo bảng chứa thông tin nhân viên -->
 
 		<!-- Bắt đầu Footer -->
-		<div>
+		<div class="text-center">
 			<p>Shop bán điện thoại di dộng - Copyright &copy; Nhóm 11</p>
 		</div>
 		<!-- Kết thúc Footer -->

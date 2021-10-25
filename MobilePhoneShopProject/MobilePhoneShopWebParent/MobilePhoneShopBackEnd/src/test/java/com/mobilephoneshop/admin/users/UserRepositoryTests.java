@@ -34,11 +34,19 @@ public class UserRepositoryTests
 		User savedUser = userRepository.save(userPhamDucKhai);
 		assertThat(savedUser.getId()).isGreaterThan(0);
 	}
-	
+
+	@Test
+	public void testUpdateEnabled()
+	{
+		User userPhamDucKhai = userRepository.findById(1).get();
+		userPhamDucKhai.setEnabled(true);
+		userRepository.save(userPhamDucKhai);
+	}
+
 	@Test
 	public void testCreateNewUserWithTwoRoles()
 	{
-		User test = new User("test@gmail.com","123456","test","test");
+		User test = new User("test@gmail.com", "123456", "test", "test");
 		Role roleEditor = new Role(3);
 		Role roleAssistant = new Role(5);
 		test.addRole(roleEditor);
@@ -46,11 +54,46 @@ public class UserRepositoryTests
 		User savedUser = userRepository.save(test);
 		assertThat(savedUser.getId()).isGreaterThan(0);
 	}
-	
+
 	@Test
 	public void testListAllUsers()
 	{
 		Iterable<User> listUsers = userRepository.findAll();
 		listUsers.forEach(user -> System.out.println(user));
+	}
+
+	@Test
+	public void testGetUserById()
+	{
+		User userPhamDucKhai = userRepository.findById(1).get();
+		System.out.println(userPhamDucKhai);
+		assertThat(userPhamDucKhai).isNotNull();
+	}
+
+	@Test
+	public void testUpdateUserDetails()
+	{
+		User userPhamDucKhai = userRepository.findById(1).get();
+		userPhamDucKhai.setEnabled(true);
+		userPhamDucKhai.setEmail("duckhai@gmail.com");
+		userRepository.save(userPhamDucKhai);
+	}
+
+	@Test
+	public void testUpdateUserRoles()
+	{
+		User userTest = userRepository.findById(2).get();
+		Role roleAssistant = new Role(5);
+		Role roleShipping = new Role(4);
+		userTest.getRoles().remove(roleAssistant);
+		userTest.addRole(roleShipping);
+		userRepository.save(userTest);
+	}
+
+	@Test
+	public void testDeleteUserById()
+	{
+		Integer id = 8;
+		userRepository.deleteById(id);
 	}
 }
