@@ -77,7 +77,7 @@
 		
 		<!-- Bắt đầu form thêm nhân viên -->
 		<form th:action="@{/users/save}" method="post" style="max-width: 700px; margin: 0 auto"
-			th:object="${user}">
+			th:object="${user}" onsubmit="return checkEmailUnique(this)">
 			<div class="border border-secondary rounded p-3">
 				<div class="form-group row">
 					<label class="col-sm-4 col-form-label">Email:</label>
@@ -137,6 +137,27 @@
 		</form>
 		<!-- Kết thúc form thêm nhân viên -->
 		
+		<!-- Bắt đầu hiện thông báo Email bị trùng (thông báo sẽ ẩn cho đến khi submit form)-->
+		<div class="modal fade text-center" id="modalDialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="modalTitle">Cảnh báo</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>					
+					</div>
+
+					<div class="modal-body">
+						<span id="modalBody"></span>
+					</div>
+				
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Kết thúc hiện thông báo Email bị trùng -->
+		
 		<!-- Bắt đầu Footer -->
 		<div class="text-center">
 			<p>Shop bán điện thoại di dộng - Copyright &copy; Nhóm 11</p>
@@ -146,8 +167,9 @@
 	</div>
 	<!-- Kết thúc giao diện chính -->
 	
-	<!-- Bắt đầu code javascript ấn nút Huỷ thì quay về trang Quản lý nhân viên -->
+	<!-- Bắt đầu code javascript -->
 	<script type="text/javascript">
+		// Ấn nút Hủy thì quay về trang Quản lý nhân viên
 		$(document).ready(function()
 		{
 			$("#buttonCancel").on("click", function()
@@ -155,8 +177,39 @@
 				window.location = "[[@{/users}]]";			
 			});		
 		});
+		
+		// Kiểm tra Email đã tồn tại hay chưa?
+		function checkEmailUnique(form)
+		{
+			url = "[[@{/users/check_email}]]";
+			userEmail = $("#email").val();
+			csrfValue = $("input[name='_csrf']").val();
+			params = {email: userEmail,_csrf: csrfValue};
+			
+			$.post(url,params, function(response)
+			{
+				if (response == "OK")
+					form.submit();
+				else if (response == "Duplicated")
+					showModalDialog("Cảnh báo", "Email đã tồn tại!")
+					else
+						showModalDialog("Lỗi", "Server không thể phản hồi!")
+			}).fail(function()
+				{
+					showModalDialog("Lỗi", "Không thể kết nối tới server!")					
+				});
+			return false;
+		}
+		
+		// Hiện thông báo email bị trùng
+		function showModalDialog(title, message)
+		{
+			$("#modalTitle").text(title);
+			$("#modalBody").text(message);
+			$("#modalDialog").modal();			
+		}
 	</script>
-	<!-- Kết thúc code javascript ấn nút Huỷ thì quay về trang Quản lý nhân viên -->
+	<!-- Kết thúc code javascript -->
 
 </body>
 
