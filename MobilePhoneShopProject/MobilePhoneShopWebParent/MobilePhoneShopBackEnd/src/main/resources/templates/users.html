@@ -5,6 +5,8 @@
 	<meta name="viewport" content="width=device-width, inittial-scale=1.0, minimun-scale=1.0">
 	<title>Quản lý nhân viên</title>
 	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
 	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
 	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </head>
@@ -99,12 +101,22 @@
 				<tbody>
 					<tr th:each="user : ${listUsers}">
 						 <td>[[${user.id}]]</td>
-						 <td></td>
+						 <td> <span class="fas fa-portrait fa-3x icon-silver"></span></td>
 						 <td>[[${user.lastName}]]</td>
-						 <td>[[${user.firstName}]]</td>
+						 <td >[[${user.firstName}]]</td>
 						 <td>[[${user.roles}]]</td>
-						 <td>[[${user.enabled}]]</td>
-						 <td>Edit &nbsp; Delete</td>
+						 <td>
+						 	<a th:if="${user.enabled == true}" class="fas fa-check-circle fa-2x icon-green" href=""></a>
+						 	<a th:if="${user.enabled == false}" class="fas fa-check-circle fa-2x icon-dark" href=""></a>
+						 </td>
+						 <td>
+							<a class="fas fa-edit fa-2x icon-green" th:href="@{'/users/edit/' + ${user.id}}"
+							title="Chỉnh sửa thông tin"></a> 
+								&nbsp;
+							<a class="fas fa-trash fa-2x icon-red link-delete" th:href="@{'/users/delete/' + ${user.id}}"
+							th:userId = "${user.id}" th:userFullName = "${user.lastName} + ' ' + ${user.firstName}"
+							title="Xoá nhân viên"></a> 
+						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -116,9 +128,50 @@
 			<p>Shop bán điện thoại di dộng - Copyright &copy; Nhóm 11</p>
 		</div>
 		<!-- Kết thúc Footer -->
+		
+		<!-- Bắt đầu hiện thông báo có thật sự muốn xoá nhân viên-->
+		<div class="modal fade text-center" id="confirmModal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">Xác nhận muốn xoá</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>					
+					</div>
+
+					<div class="modal-body">
+						<span id="confirmText"></span>
+					</div>
+				
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Không</button>
+						<a class="btn btn-success" href="" id="yesButton">Xoá</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Kết thúc hiện thông báo có thật sự muốn xoá nhân viên -->
 
 	</div>
 	<!-- Kết thúc giao diện chính -->
-
+	
+	<!-- Bắt đầu code javascript -->
+	<script type="text/javascript">
+		// Ấn nút xóa thì hiển thị thông báo xác nhận muốn xoá
+		$(document).ready(function()
+		{
+			$(".link-delete").on("click",function(e)
+			{
+				e.preventDefault();
+				//alert($(this).attr("href"));
+				link = $(this);
+				userId = link.attr("userId");
+				userFullName = link.attr("userFullName");
+				$("#yesButton").attr("href",link.attr("href"))
+				$("#confirmText").text("Bạn có muốn xoá nhân viên '"+ userFullName +"' với id = " + userId + "?");
+				$("#confirmModal").modal();
+			});
+		});
+	</script>
+	<!-- Kết thúc code javascript -->
 </body>
 </html>
