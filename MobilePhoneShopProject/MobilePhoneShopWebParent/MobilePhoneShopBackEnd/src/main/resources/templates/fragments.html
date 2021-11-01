@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="ISO-8859-1">
+</head>
+<!-- Trang này được tạo ra để tái sử dụng code HTML -->
+<body>
+	<!-- Code truyền fieldName, tên cột-->
+	<th th:fragment="column_Link(fieldName, columnLabel)">
+		<a class="text-white" 
+		th:href="@{'/users/page/' + ${currentPage} + '?sortField='+ ${fieldName} +'&sortDirection=' + 
+		${sortField != fieldName ? sortDirection : reverseSortDirection}
+		+ ${keyword != null ? '&keyword=' + keyword : ''}}">
+			[[${columnLabel}]]
+		</a>
+		<span th:if="${sortField == fieldName}" 
+		th:class="${sortDirection == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
+	</th>
+	
+	<!-- Code truyền số trang và tên nút -->
+	<a th:fragment="page_Link(pageNumber, label)" class="page-link" 
+	th:href="@{'/users/page/' + ${pageNumber} +'?sortField=' + ${sortField} + '&sortDirection=' + ${sortDirection}}">
+		[[${label}]]
+	</a>
+</body>
+</html>

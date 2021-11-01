@@ -76,6 +76,10 @@
 		<div>
 			<h2>Quản lý nhân viên</h2>
 			<a th:href="@{/users/new}">Thêm nhân viên</a>
+			&nbsp; | &nbsp;
+			<a th:href="@{/users/export/csv}">In file .CSV</a>
+			&nbsp; | &nbsp;
+			<a th:href="@{/users/export/excel}">In file .XSLX</a>
 		</div>
 		
 		<!-- Bắt đầu hiển thị thông tin thêm thành công -->
@@ -84,30 +88,52 @@
 		</div>
 		<!-- Kết thúc hiển thị thông tin thêm thành công -->
 		
+		<!-- Bắt đầu form tìm kiếm -->
+		<div>
+			<form th:action="@{/users/page/1}" class="form-inline m-3">
+				<input type="hidden" name="sortField" th:value="${sortField}">
+				<input type="hidden" name="sortDirection" th:value="${sortDirection}">
+				Tìm kiếm:&nbsp;
+				<input type="search" name="keyword" th:value="${keyword}" class="form-control" required>
+				&nbsp;&nbsp;
+				<input type="submit" value="Tìm kiếm" class="btn btn-primary">
+				&nbsp;&nbsp;
+				<input type="button" value="Làm mới" class="btn btn-secondary" onclick="clearFilter()">
+			</form>
+		</div>
+		<!-- Kết thúc form tìm kiếm -->
+		
 		<!-- Bắt đầu tạo bảng chứa thông tin nhân viên -->
 		<div>
 			<table class="table table-bordered table-striped table-hover table-responsive-xl">
 				<thead class="thead-dark">
 					<tr>	
-						<th>Mã nhân viên</th>
+						<th th:replace="fragments :: column_Link('id', 'Mã nhân viên')"></th>
 						<th>Ảnh đại diện</th>
-						<th>Họ</th>
-						<th>Tên</th>
+						<th th:replace="fragments :: column_Link('email', 'E-mail')"></th>
+						<th th:replace="fragments :: column_Link('lastName', 'Họ lót')"></th>    
+						<th th:replace="fragments :: column_Link('firstName', 'Tên')"></th>
 						<th>Chức vụ</th>
-						<th>Cho phép hoạt động</th>
+						<th th:replace="fragments :: column_Link('enabled', 'Cho phép hoạt động')"></th>
 						<th>Thao tác</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="user : ${listUsers}">
 						 <td>[[${user.id}]]</td>
-						 <td> <span class="fas fa-portrait fa-3x icon-silver"></span></td>
+						 <td>
+						 	<span th:if="${user.photos == null}" class="fas fa-portrait fa-3x icon-silver"></span>
+						 	<img th:if="${user.photos != null}" th:src="@{${user.photosImagePath}}">
+						 </td>
+						 <td>[[${user.email}]]</td>
 						 <td>[[${user.lastName}]]</td>
 						 <td >[[${user.firstName}]]</td>
 						 <td>[[${user.roles}]]</td>
 						 <td>
-						 	<a th:if="${user.enabled == true}" class="fas fa-check-circle fa-2x icon-green" href=""></a>
-						 	<a th:if="${user.enabled == false}" class="fas fa-check-circle fa-2x icon-dark" href=""></a>
+						 	<a th:if="${user.enabled == true}" class="fas fa-check-circle fa-2x icon-green" 
+						 	th:href="@{'/users/' + ${user.id} + '/enabled/false'}" title="Đang hoạt động"></a>
+						 	<a th:if="${user.enabled == false}" class="fas fa-circle fa-2x icon-dark" 
+						 	th:href="@{'/users/' + ${user.id} + '/enabled/true'}" title="Dừng hoạt động"></a>
 						 </td>
 						 <td>
 							<a class="fas fa-edit fa-2x icon-green" th:href="@{'/users/edit/' + ${user.id}}"
@@ -122,6 +148,39 @@
 			</table>
 		</div>
 		<!-- Kết thúc tạo bảng chứa thông tin nhân viên -->
+		
+		<!-- Bắt đầu phần hiển thị từ nhân viên đến nhân viên trong tổng số nhân viên -->
+		<div class="text-center m-1" th:if="${totalItems} > 0">
+			<span>Hiển thị nhân viên từ [[${startCount}]] đến [[${endCount}]] trong tổng [[${totalItems}]] nhân viên</span>
+		</div>
+		<div class="text-center m-1" th:unless="${totalItems} > 0">
+			<span>Không tìm thấy bất kì nhân viên nào</span>
+		</div>
+		<!-- Kết thúc phần hiển thị từ nhân viên đến nhân viên trong tổng số nhân viên -->
+		
+		<!-- Bắt đầu phần điều khiển / chọn số trang -->
+		<div th:if="${totalPages > 1}" class="text-center">
+			<nav>
+			  	<ul class="pagination justify-content-center">
+			  		<li th:class="${currentPage > 1} ? 'page-item' : 'page-item disabled'">
+			  			<a th:replace="fragments :: page_Link(1, 'Trang đầu')"></a>
+			  		</li>
+			    	<li th:class="${currentPage > 1} ? 'page-item' : 'page-item disabled'">
+			    		<a th:replace="fragments :: page_Link(${currentPage - 1}, 'Trang trước')"></a>
+			    	</li>
+			    	<li th:class="${currentPage != i} ? 'page-item' : 'page-item active'" th:each="i : ${#numbers.sequence(1, totalPages)}">
+			    		<a th:replace="fragments :: page_Link(${i}, ${i})"></a>
+			    	</li>
+			 		<li th:class="${currentPage < totalPages} ? 'page-item' : 'page-item disabled'">
+			 			<a th:replace="fragments :: page_Link(${currentPage + 1}, 'Trang kế')"></a>
+			 		</li>
+			 		<li th:class="${currentPage < totalPages} ? 'page-item' : 'page-item disabled'">
+			 			<a th:replace="fragments :: page_Link(${totalPages}, 'Trang cuối')"></a>
+			 		</li>
+				</ul>
+			</nav>
+		</div>
+		<!-- Kết thúc phần điều khiển / chọn số trang -->
 
 		<!-- Bắt đầu Footer -->
 		<div class="text-center">
@@ -156,13 +215,12 @@
 	
 	<!-- Bắt đầu code javascript -->
 	<script type="text/javascript">
-		// Ấn nút xóa thì hiển thị thông báo xác nhận muốn xoá
+		// Ấn nút xóa(thùng rác) thì hiển thị thông báo xác nhận muốn xoá
 		$(document).ready(function()
 		{
 			$(".link-delete").on("click",function(e)
 			{
 				e.preventDefault();
-				//alert($(this).attr("href"));
 				link = $(this);
 				userId = link.attr("userId");
 				userFullName = link.attr("userFullName");
@@ -171,6 +229,12 @@
 				$("#confirmModal").modal();
 			});
 		});
+		
+		// Ấn nút Làm mới thì trở về trang chủ
+		function clearFilter()
+		{
+			window.location = "[[@{/users}]]"; 			
+		}
 	</script>
 	<!-- Kết thúc code javascript -->
 </body>
