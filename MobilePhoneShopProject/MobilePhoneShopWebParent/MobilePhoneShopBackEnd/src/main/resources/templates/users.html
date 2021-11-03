@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<meta name="viewport" content="width=device-width, inittial-scale=1.0, minimun-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 	<title>Quản lý nhân viên</title>
 	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
 	<link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}">
@@ -75,11 +75,13 @@
 
 		<div>
 			<h2>Quản lý nhân viên</h2>
-			<a th:href="@{/users/new}">Thêm nhân viên</a>
+			<a th:href="@{/users/new}" class="fas fa-user-plus fa-2x icon-blue"></a>
 			&nbsp; | &nbsp;
-			<a th:href="@{/users/export/csv}">In file .CSV</a>
+			<a th:href="@{/users/export/csv}" class="fas fa-file-csv fa-2x icon-dark"></a>
 			&nbsp; | &nbsp;
-			<a th:href="@{/users/export/excel}">In file .XSLX</a>
+			<a th:href="@{/users/export/excel}" class="fas fa-file-excel fa-2x icon-green"></a>
+			&nbsp; | &nbsp;
+			<a th:href="@{/users/export/pdf}" class="fas fa-file-pdf fa-2x icon-red"></a>
 		</div>
 		
 		<!-- Bắt đầu hiển thị thông tin thêm thành công -->
@@ -96,36 +98,44 @@
 				Tìm kiếm:&nbsp;
 				<input type="search" name="keyword" th:value="${keyword}" class="form-control" required>
 				&nbsp;&nbsp;
-				<input type="submit" value="Tìm kiếm" class="btn btn-primary">
+				<button type="submit" class="btn btn-primary">
+					<i class="fas fa-search"></i>
+				</button>
 				&nbsp;&nbsp;
-				<input type="button" value="Làm mới" class="btn btn-secondary" onclick="clearFilter()">
+				<button type="button" class="btn btn-secondary" onclick="clearFilter()">
+					<i class="fas fa-eraser"></i>
+				</button>
 			</form>
 		</div>
 		<!-- Kết thúc form tìm kiếm -->
 		
-		<!-- Bắt đầu tạo bảng chứa thông tin nhân viên -->
-		<div>
+		<!-- Bắt đầu tạo bảng chứa thông tin nhân viên (Loại hiển thị toàn bộ thông tin) -->
+		<div class="full-details">
 			<table class="table table-bordered table-striped table-hover table-responsive-xl">
 				<thead class="thead-dark">
 					<tr>	
-						<th th:replace="fragments :: column_Link('id', 'Mã nhân viên')"></th>
+						<th class="hideable-column">
+							<th th:replace="fragments :: column_Link('id', 'Mã nhân viên', 'tag')">
+						</th>
 						<th>Ảnh đại diện</th>
-						<th th:replace="fragments :: column_Link('email', 'E-mail')"></th>
-						<th th:replace="fragments :: column_Link('lastName', 'Họ lót')"></th>    
-						<th th:replace="fragments :: column_Link('firstName', 'Tên')"></th>
+						<th class="hideable-column">
+							<th th:replace="fragments :: column_Link('email', 'E-mail', 'tag')">
+						</th>
+						<th th:replace="fragments :: column_Link('lastName', 'Họ lót', 'none')"></th>    
+						<th th:replace="fragments :: column_Link('firstName', 'Tên', 'none')"></th>
 						<th>Chức vụ</th>
-						<th th:replace="fragments :: column_Link('enabled', 'Cho phép hoạt động')"></th>
+						<th th:replace="fragments :: column_Link('enabled', 'Cho phép hoạt động', 'none')"></th>
 						<th>Thao tác</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="user : ${listUsers}">
-						 <td>[[${user.id}]]</td>
+						 <td class="hideable-column">[[${user.id}]]</td>
 						 <td>
 						 	<span th:if="${user.photos == null}" class="fas fa-portrait fa-3x icon-silver"></span>
-						 	<img th:if="${user.photos != null}" th:src="@{${user.photosImagePath}}">
+						 	<img th:if="${user.photos != null}" th:src="@{${user.photosImagePath}}" style="width: 100px"	>
 						 </td>
-						 <td>[[${user.email}]]</td>
+						 <td class="hideable-column">[[${user.email}]]</td>
 						 <td>[[${user.lastName}]]</td>
 						 <td >[[${user.firstName}]]</td>
 						 <td>[[${user.roles}]]</td>
@@ -147,7 +157,38 @@
 				</tbody>
 			</table>
 		</div>
-		<!-- Kết thúc tạo bảng chứa thông tin nhân viên -->
+		<!-- Kết thúc tạo bảng chứa thông tin nhân viên (Loại hiển thị toàn bộ thông tin) -->
+		
+		<!-- Bắt đầu tạo bảng chứa thông tin nhân viên (Loại hiển thị ít thông tin) -->
+		<div class="less-details">
+			<div th:each="user : ${listUsers}" class="row m-1">
+				<div class="col-4">
+					<span th:if="${user.photos == null}" class="fas fa-portrait fa-3x icon-silver"></span>
+					<img th:if="${user.photos != null}" th:src="@{${user.photosImagePath}}" 
+					style="width: 100px">
+				</div>
+				<div class="col-8">
+					<div>[[${user.fullName}]]</div>
+					<div>[[${user.roles}]]</div>
+					<div class="mt-2">
+						<a th:if="${user.enabled == true}" class="fas fa-check-circle fa-2x icon-green" 
+						 	th:href="@{'/users/' + ${user.id} + '/enabled/false'}" title="Đang hoạt động"></a>
+						 	&nbsp;
+						<a th:if="${user.enabled == false}" class="fas fa-circle fa-2x icon-dark" 
+						 	th:href="@{'/users/' + ${user.id} + '/enabled/true'}" title="Dừng hoạt động"></a>
+						 	&nbsp;
+						<a class="fas fa-edit fa-2x icon-green" th:href="@{'/users/edit/' + ${user.id}}"
+							title="Chỉnh sửa thông tin"></a> 
+							&nbsp;
+						<a class="fas fa-trash fa-2x icon-red link-delete" th:href="@{'/users/delete/' + ${user.id}}"
+							th:userId = "${user.id}" th:userFullName = "${user.lastName} + ' ' + ${user.firstName}"
+							title="Xoá nhân viên"></a>					
+					</div>
+				</div>
+				<div>&nbsp;</div>
+			</div>
+		</div>
+		<!-- Kết thúc tạo bảng chứa thông tin nhân viên (Loại hiển thị ít thông tin) -->
 		
 		<!-- Bắt đầu phần hiển thị từ nhân viên đến nhân viên trong tổng số nhân viên -->
 		<div class="text-center m-1" th:if="${totalItems} > 0">
@@ -159,9 +200,9 @@
 		<!-- Kết thúc phần hiển thị từ nhân viên đến nhân viên trong tổng số nhân viên -->
 		
 		<!-- Bắt đầu phần điều khiển / chọn số trang -->
-		<div th:if="${totalPages > 1}" class="text-center">
+		<div th:if="${totalPages > 1}">
 			<nav>
-			  	<ul class="pagination justify-content-center">
+			  	<ul class="pagination justify-content-center flex-wrap">
 			  		<li th:class="${currentPage > 1} ? 'page-item' : 'page-item disabled'">
 			  			<a th:replace="fragments :: page_Link(1, 'Trang đầu')"></a>
 			  		</li>

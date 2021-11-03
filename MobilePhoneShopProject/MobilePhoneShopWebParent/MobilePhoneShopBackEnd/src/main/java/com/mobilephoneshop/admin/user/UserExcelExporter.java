@@ -90,7 +90,7 @@ public class UserExcelExporter extends AbstractExporter
 
 	public void export(List<User> listUsers, HttpServletResponse httpServletResponse) throws IOException
 	{
-		super.setResponseHeader(httpServletResponse, "application/octet-stream", ".xlsx");
+		super.setResponseHeader(httpServletResponse, "application/octet-stream", ".xlsx", "utf-8");
 		writeHeaderLine();
 		writeDataLine(listUsers);
 		ServletOutputStream outputStream = httpServletResponse.getOutputStream();

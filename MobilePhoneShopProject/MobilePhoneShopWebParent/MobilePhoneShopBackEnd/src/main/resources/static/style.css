@@ -3,3 +3,26 @@
 *.icon-green {color: green}
 *.icon-red {color: red}
 *.icon-dark {color: gray}
+*.icon-blue {color: blue}
+
+@media screen and (max-width: 768px) {
+	/* Màn hình nhỏ */
+	div.full-details { display: none }
+	div.less-details { display: block }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px)
+{
+	/* Màn hình trung bình */
+	div.full-details { display: block }
+	div.less-details { display: none }
+	.hideable-column { display: none }
+}
+
+@media screen and (min-width: 1024px)
+{
+	/* Màn hình lớn */
+	div.full-details { display: block }
+	div.less-details { display: none }
+	.hideable-column { display: table-cell }
+}

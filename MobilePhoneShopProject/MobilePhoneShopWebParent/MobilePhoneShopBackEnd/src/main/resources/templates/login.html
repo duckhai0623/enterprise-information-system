@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+	<title>Đăng nhập</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+</head>
+<body>
+
+	<!-- Bắt đầu giao diện chính -->
+	<div class="container-fluid text-center">
+		
+		<!-- Bắt đầu ảnh bìa trang web -->
+		<div>
+			<img th:src="@{/images/MobilePhoneShopAdminBig.png}">			
+		</div>
+		<!-- Kết thúc ảnh bìa trang web -->
+		
+		<!-- Bắt đầu form đăng nhập -->
+		<form th:action="@{/login}" method="post" style="max-width: 350px; margin: 0 auto">
+			<div th:if="${param.error}">
+				<p class="text-danger">Tài khoản hoặc mật khẩu không đúng!</p>
+			</div>
+			<div th:if="${param.logout}">
+				<p class="text-warning">Đăng xuất thành công!</p>
+			</div>
+			<div class="border border-secondary rounded p-3">
+				<p>Đăng nhập</p>
+				<p>
+					<input type="email" name="email" class="form-control" placeholder="E-mail" required>
+				</p>
+				<p>
+					<input type="password" name="password" class="form-control" placeholder="Mật khẩu" required>
+				</p>
+				<p>
+					<input type="submit" name="Đăng nhập" class="btn btn-primary">
+				</p>
+			</div>
+		</form>
+		<!-- Kết thúc form đăng nhập -->
+		
+		<!-- Bắt đầu Footer -->
+		<div>
+			<p>Shop bán điện thoại di dộng - Copyright &copy; Nhóm 11</p>
+		</div>
+		<!-- Kết thúc Footer -->
+
+	</div>
+	<!-- Kết thúc giao diện chính -->
+
+</body>
+</html>

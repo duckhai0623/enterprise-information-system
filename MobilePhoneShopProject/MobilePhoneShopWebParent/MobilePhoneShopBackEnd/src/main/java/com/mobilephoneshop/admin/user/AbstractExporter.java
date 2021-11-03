@@ -9,14 +9,14 @@ import javax.servlet.http.HttpServletResponse;
 
 public class AbstractExporter
 {
-	public void setResponseHeader(HttpServletResponse httpServletResponse, String contentType, String extension)
+	public void setResponseHeader(HttpServletResponse httpServletResponse, String contentType, String extension, String charSet)
 			throws IOException
 	{
 		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss");
 		String timestamp = dateFormat.format(new Date());
 		String fileName = "nhanVien_" + timestamp + extension;
 		httpServletResponse.setContentType(contentType);
-		httpServletResponse.setCharacterEncoding("utf-8");
+		httpServletResponse.setCharacterEncoding(charSet);
 		String headerKey = "Content-Disposition";
 		String headerValue = "attachment; fileName= " + fileName;
 		httpServletResponse.setHeader(headerKey, headerValue);

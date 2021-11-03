@@ -6,7 +6,7 @@
 <!-- Trang này được tạo ra để tái sử dụng code HTML -->
 <body>
 	<!-- Code truyền fieldName, tên cột-->
-	<th th:fragment="column_Link(fieldName, columnLabel)">
+	<th th:fragment="column_Link(fieldName, columnLabel, removeTag)" th:remove="${removeTag}">
 		<a class="text-white" 
 		th:href="@{'/users/page/' + ${currentPage} + '?sortField='+ ${fieldName} +'&sortDirection=' + 
 		${sortField != fieldName ? sortDirection : reverseSortDirection}

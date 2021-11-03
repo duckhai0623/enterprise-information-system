@@ -15,7 +15,7 @@ public class UserCsvExporter extends AbstractExporter
 {
 	public void export(List<User> listUsers, HttpServletResponse httpServletResponse) throws IOException
 	{
-		super.setResponseHeader(httpServletResponse, "text/csv", ".csv");
+		super.setResponseHeader(httpServletResponse, "text/csv", ".csv", "utf-8");
 		ICsvBeanWriter csvBeanWriter = new CsvBeanWriter(httpServletResponse.getWriter(),
 				CsvPreference.STANDARD_PREFERENCE);
 		String[] csvHeader =
