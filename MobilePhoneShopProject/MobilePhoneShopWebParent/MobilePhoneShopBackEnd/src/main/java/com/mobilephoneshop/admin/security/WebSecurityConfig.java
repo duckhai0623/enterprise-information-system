@@ -46,6 +46,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 	protected void configure(HttpSecurity http) throws Exception
 	{
 		http.authorizeRequests()
+		.antMatchers("/users/**").hasAuthority("Admin")
+		.antMatchers("/categories/**").hasAnyAuthority("Admin", "Quản lý kho")
 		.anyRequest().authenticated()
 		.and()
 		.formLogin()
@@ -54,7 +56,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 			.permitAll()
 		.and()
 			.logout()
-			.permitAll();
+			.permitAll()
+		.and()
+			.rememberMe()
+			.key("kvEntfDQv9VwuPStbwABhJOgBzRXBv1c")
+			.tokenValiditySeconds(7*24*60*60);
 		
 	}
 	

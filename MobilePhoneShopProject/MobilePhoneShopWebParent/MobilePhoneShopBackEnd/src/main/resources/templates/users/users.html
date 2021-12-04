@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: page_Head('Quản lý nhân viên')" />
+<body>
+
+	<!-- Bắt đầu giao diện chính -->
+	<div class="container-fluid">
+
+		<!-- Bắt đầu Header Menu -->
+		<div th:replace="navigation :: menu()"></div>
+		<!-- Kết thúc Header Menu -->
+
+		<div>
+			<h2>Quản lý nhân viên</h2>
+			<a th:href="@{/users/new}" class="fas fa-user-plus fa-2x icon-blue"></a>
+			&nbsp; | &nbsp;
+			<a th:href="@{/users/export/csv}" class="fas fa-file-csv fa-2x icon-dark"></a>
+			&nbsp; | &nbsp;
+			<a th:href="@{/users/export/excel}" class="fas fa-file-excel fa-2x icon-green"></a>
+			&nbsp; | &nbsp;
+			<a th:href="@{/users/export/pdf}" class="fas fa-file-pdf fa-2x icon-red"></a>
+		</div>
+		
+		<!-- Bắt đầu hiển thị thông báo thêm thành công -->
+		<div th:if="${message != null}" class="alert alert-success text-center">
+			[[${message}]]
+		</div>
+		<!-- Kết thúc hiển thị thông báo thêm thành công -->
+		
+		<!-- Bắt đầu form tìm kiếm -->
+		<div>
+			<form th:action="@{/users/page/1}" class="form-inline m-3">
+				<input type="hidden" name="sortField" th:value="${sortField}">
+				<input type="hidden" name="sortDirection" th:value="${sortDirection}">
+				Tìm kiếm:&nbsp;
+				<input type="search" name="keyword" th:value="${keyword}" class="form-control" required>
+				&nbsp;&nbsp;
+				<button type="submit" class="btn btn-primary">
+					<i class="fas fa-search"></i>
+				</button>
+				&nbsp;&nbsp;
+				<button type="button" class="btn btn-secondary" onclick="clearFilter()">
+					<i class="fas fa-eraser"></i>
+				</button>
+			</form>
+		</div>
+		<!-- Kết thúc form tìm kiếm -->
+		
+		<!-- Bắt đầu tạo bảng chứa thông tin nhân viên (Loại hiển thị toàn bộ thông tin) -->
+		<div class="full-details">
+			<table class="table table-bordered table-striped table-hover table-responsive-xl">
+				<thead class="thead-dark">
+					<tr>	
+						<th class="hideable-column">
+							<th th:replace="fragments :: column_Link('id', 'Mã nhân viên', 'tag')">
+						</th>
+						<th>Ảnh đại diện</th>
+						<th class="hideable-column">
+							<th th:replace="fragments :: column_Link('email', 'E-mail', 'tag')">
+						</th>
+						<th th:replace="fragments :: column_Link('lastName', 'Họ lót', 'none')"></th>    
+						<th th:replace="fragments :: column_Link('firstName', 'Tên', 'none')"></th>
+						<th>Chức vụ</th>
+						<th th:replace="fragments :: column_Link('enabled', 'Cho phép hoạt động', 'none')"></th>
+						<th>Thao tác</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="user : ${listUsers}">
+						 <td class="hideable-column">[[${user.id}]]</td>
+						 <td>
+						 	<span th:if="${user.photos == null}" class="fas fa-portrait fa-3x icon-silver"></span>
+						 	<img th:if="${user.photos != null}" th:src="@{${user.photosImagePath}}" style="width: 100px"	>
+						 </td>
+						 <td class="hideable-column">[[${user.email}]]</td>
+						 <td>[[${user.lastName}]]</td>
+						 <td >[[${user.firstName}]]</td>
+						 <td>[[${user.roles}]]</td>
+						 <td>
+						 	<a th:if="${user.enabled == true}" class="fas fa-check-circle fa-2x icon-green" 
+						 	th:href="@{'/users/' + ${user.id} + '/enabled/false'}" title="Đang hoạt động"></a>
+						 	<a th:if="${user.enabled == false}" class="fas fa-circle fa-2x icon-dark" 
+						 	th:href="@{'/users/' + ${user.id} + '/enabled/true'}" title="Dừng hoạt động"></a>
+						 </td>
+						 <td>
+							<a class="fas fa-edit fa-2x icon-green" th:href="@{'/users/edit/' + ${user.id}}"
+							title="Chỉnh sửa thông tin"></a> 
+								&nbsp;
+							<a class="fas fa-trash fa-2x icon-red link-delete" th:href="@{'/users/delete/' + ${user.id}}"
+							th:userId = "${user.id}" th:userFullName = "${user.lastName} + ' ' + ${user.firstName}"
+							title="Xoá nhân viên"></a> 
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!-- Kết thúc tạo bảng chứa thông tin nhân viên (Loại hiển thị toàn bộ thông tin) -->
+		
+		<!-- Bắt đầu tạo bảng chứa thông tin nhân viên (Loại hiển thị ít thông tin) -->
+		<div class="less-details">
+			<div th:each="user : ${listUsers}" class="row m-1">
+				<div class="col-4">
+					<span th:if="${user.photos == null}" class="fas fa-portrait fa-3x icon-silver"></span>
+					<img th:if="${user.photos != null}" th:src="@{${user.photosImagePath}}" 
+					style="width: 100px">
+				</div>
+				<div class="col-8">
+					<div>[[${user.fullName}]]</div>
+					<div>[[${user.roles}]]</div>
+					<div class="mt-2">
+						<a th:if="${user.enabled == true}" class="fas fa-check-circle fa-2x icon-green" 
+						 	th:href="@{'/users/' + ${user.id} + '/enabled/false'}" title="Đang hoạt động"></a>
+						 	&nbsp;
+						<a th:if="${user.enabled == false}" class="fas fa-circle fa-2x icon-dark" 
+						 	th:href="@{'/users/' + ${user.id} + '/enabled/true'}" title="Dừng hoạt động"></a>
+						 	&nbsp;
+						<a class="fas fa-edit fa-2x icon-green" th:href="@{'/users/edit/' + ${user.id}}"
+							title="Chỉnh sửa thông tin"></a> 
+							&nbsp;
+						<a class="fas fa-trash fa-2x icon-red link-delete" th:href="@{'/users/delete/' + ${user.id}}"
+							th:userId = "${user.id}" th:userFullName = "${user.lastName} + ' ' + ${user.firstName}"
+							title="Xoá nhân viên"></a>					
+					</div>
+				</div>
+				<div>&nbsp;</div>
+			</div>
+		</div>
+		<!-- Kết thúc tạo bảng chứa thông tin nhân viên (Loại hiển thị ít thông tin) -->
+		
+		<!-- Bắt đầu phần hiển thị từ nhân viên đến nhân viên trong tổng số nhân viên -->
+		<div class="text-center m-1" th:if="${totalItems} > 0">
+			<span>Hiển thị nhân viên từ [[${startCount}]] đến [[${endCount}]] trong tổng [[${totalItems}]] nhân viên</span>
+		</div>
+		<div class="text-center m-1" th:unless="${totalItems} > 0">
+			<span>Không tìm thấy bất kì nhân viên nào</span>
+		</div>
+		<!-- Kết thúc phần hiển thị từ nhân viên đến nhân viên trong tổng số nhân viên -->
+		
+		<!-- Bắt đầu phần điều khiển / chọn số trang -->
+		<div th:if="${totalPages > 1}">
+			<nav>
+			  	<ul class="pagination justify-content-center flex-wrap">
+			  		<li th:class="${currentPage > 1} ? 'page-item' : 'page-item disabled'">
+			  			<a th:replace="fragments :: page_Link(1, 'Trang đầu')"></a>
+			  		</li>
+			    	<li th:class="${currentPage > 1} ? 'page-item' : 'page-item disabled'">
+			    		<a th:replace="fragments :: page_Link(${currentPage - 1}, 'Trang trước')"></a>
+			    	</li>
+			    	<li th:class="${currentPage != i} ? 'page-item' : 'page-item active'" th:each="i : ${#numbers.sequence(1, totalPages)}">
+			    		<a th:replace="fragments :: page_Link(${i}, ${i})"></a>
+			    	</li>
+			 		<li th:class="${currentPage < totalPages} ? 'page-item' : 'page-item disabled'">
+			 			<a th:replace="fragments :: page_Link(${currentPage + 1}, 'Trang kế')"></a>
+			 		</li>
+			 		<li th:class="${currentPage < totalPages} ? 'page-item' : 'page-item disabled'">
+			 			<a th:replace="fragments :: page_Link(${totalPages}, 'Trang cuối')"></a>
+			 		</li>
+				</ul>
+			</nav>
+		</div>
+		<!-- Kết thúc phần điều khiển / chọn số trang -->
+
+		<!-- Bắt đầu Footer -->
+		<div th:replace="fragments :: footer()"></div>
+		<!-- Kết thúc Footer -->
+		
+		<!-- Bắt đầu hiện thông báo có thật sự muốn xoá nhân viên-->
+		<div class="modal fade text-center" id="confirmModal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">Xác nhận muốn xoá</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>					
+					</div>
+
+					<div class="modal-body">
+						<span id="confirmText"></span>
+					</div>
+				
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Không</button>
+						<a class="btn btn-success" href="" id="yesButton">Xoá</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Kết thúc hiện thông báo có thật sự muốn xoá nhân viên -->
+
+	</div>
+	<!-- Kết thúc giao diện chính -->
+	
+	<!-- Bắt đầu code javascript -->
+	<script type="text/javascript">
+		// Ấn nút xóa(thùng rác) thì hiển thị thông báo xác nhận muốn xoá
+		$(document).ready(function()
+		{
+			$(".link-delete").on("click",function(e)
+			{
+				e.preventDefault();
+				link = $(this);
+				userId = link.attr("userId");
+				userFullName = link.attr("userFullName");
+				$("#yesButton").attr("href",link.attr("href"))
+				$("#confirmText").text("Bạn có muốn xoá nhân viên '"+ userFullName +"' với id = " + userId + "?");
+				$("#confirmModal").modal();
+			});
+		});
+		
+		// Ấn nút Làm mới thì trở về trang chủ
+		function clearFilter()
+		{
+			window.location = "[[@{/users}]]"; 			
+		}
+	</script>
+	<!-- Kết thúc code javascript -->
+</body>
+</html>

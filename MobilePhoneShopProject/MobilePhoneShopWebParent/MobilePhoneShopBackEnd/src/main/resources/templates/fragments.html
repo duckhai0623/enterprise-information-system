@@ -1,7 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-	<meta charset="ISO-8859-1">
+<!-- Code tạo header cho file html -->
+<head th:fragment="page_Head(title)">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+	<title>[[${title}]]</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/common.js}"></script>
 </head>
 <!-- Trang này được tạo ra để tái sử dụng code HTML -->
 <body>
@@ -17,10 +26,31 @@
 		th:class="${sortDirection == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
 	</th>
 	
+	<!-- Code thể hiện trạng thái enabled của categories -->
+	<div th:fragment="category_status">
+	 	<a th:if="${category.enabled == true}" class="fas fa-check-circle fa-2x icon-green" 
+	 	th:href="@{'/categories/' + ${category.id} + '/enabled/false'}" title="Đang hoạt động"></a>
+	 	<a th:if="${category.enabled == false}" class="fas fa-circle fa-2x icon-dark" 
+	 	th:href="@{'/categories/' + ${category.id} + '/enabled/true'}" title="Dừng hoạt động"></a>
+	 </div>
+	
+	<!-- Code thể hiện nút xoá, sửa của categories -->
+	<div th:fragment="category_actions">
+		<a class="fas fa-edit fa-2x icon-green" th:href="@{'/categories/edit/' + ${category.id}}"
+		title="Chỉnh sửa thông tin"></a> 
+			&nbsp;
+		<a class="fas fa-trash fa-2x icon-red link-delete" th:href="@{'/categories/delete/' + ${category.id}}"
+		title="Xoá loại hàng"></a>
+	</div>
 	<!-- Code truyền số trang và tên nút -->
 	<a th:fragment="page_Link(pageNumber, label)" class="page-link" 
 	th:href="@{'/users/page/' + ${pageNumber} +'?sortField=' + ${sortField} + '&sortDirection=' + ${sortDirection}}">
 		[[${label}]]
 	</a>
+	
+	<!-- Code tạo footer -->
+	<div th:fragment="footer()" class="text-center m-3">
+		<p>Shop bán điện thoại di dộng - Copyright &copy; Nhóm 11</p>
+	</div>
 </body>
 </html>

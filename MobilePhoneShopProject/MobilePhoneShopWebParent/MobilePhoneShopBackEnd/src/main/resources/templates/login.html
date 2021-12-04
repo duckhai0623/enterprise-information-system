@@ -34,16 +34,17 @@
 					<input type="password" name="password" class="form-control" placeholder="Mật khẩu" required>
 				</p>
 				<p>
-					<input type="submit" name="Đăng nhập" class="btn btn-primary">
+					<input type="checkbox" name="remember-me">&nbsp; Ghi nhớ đăng nhập
+				</p>
+				<p>
+					<input type="submit" value="Đăng nhập" name="Đăng nhập" class="btn btn-primary">
 				</p>
 			</div>
 		</form>
 		<!-- Kết thúc form đăng nhập -->
 		
 		<!-- Bắt đầu Footer -->
-		<div>
-			<p>Shop bán điện thoại di dộng - Copyright &copy; Nhóm 11</p>
-		</div>
+		<div th:replace="fragments :: footer()"></div> 
 		<!-- Kết thúc Footer -->
 
 	</div>

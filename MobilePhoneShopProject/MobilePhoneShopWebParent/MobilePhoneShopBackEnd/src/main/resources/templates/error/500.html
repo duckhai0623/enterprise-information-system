@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+	<head th:replace="fragments :: page_Head('Trang không tồn tại')" />
+<body>
+
+	<!-- Bắt đầu giao diện chính -->
+	<div class="container-fluid">
+
+		<!-- Bắt đầu Header Menu -->
+		<div th:replace="navigation :: menu()"></div>
+		<!-- Kết thúc Header Menu -->		
+
+		<div class="m-3">
+			<h2>500 Error - Server gặp lỗi khi tiến hành xử lý yêu cầu của bạn! Vui lòng thử lại</h2>
+		</div>
+
+		<!-- Bắt đầu Footer -->
+		<div th:replace="fragments :: footer()"></div>
+		<!-- Kết thúc Footer -->
+
+	</div>
+	<!-- Kết thúc giao diện chính -->
+	
+</body>
+</html>

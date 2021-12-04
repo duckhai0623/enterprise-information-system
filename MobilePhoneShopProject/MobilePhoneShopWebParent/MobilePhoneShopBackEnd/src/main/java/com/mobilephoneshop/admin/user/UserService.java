@@ -31,6 +31,11 @@ public class UserService
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	public User getByEmail(String email)
+	{
+		return userRepository.getUserByEmail(email);
+	}
+
 	public List<User> listAll()
 	{
 		return (List<User>) userRepository.findAll(Sort.by("id").ascending());
@@ -69,6 +74,23 @@ public class UserService
 			encodePassword(user);
 		}
 		return userRepository.save(user);
+	}
+
+	public User updateAccount(User userInForm)
+	{
+		User userInDB = userRepository.findById(userInForm.getId()).get();
+		if (!userInForm.getPassword().isEmpty())
+		{
+			userInDB.setPassword(userInForm.getPassword());
+			encodePassword(userInDB);
+		}
+		if(userInForm.getPhotos() != null)
+		{
+			userInDB.setPhotos(userInForm.getPhotos());
+		}
+		userInDB.setLastName(userInForm.getLastName());
+		userInDB.setFirstName(userInForm.getFirstName());
+		return userRepository.save(userInDB);
 	}
 
 	private void encodePassword(User user)
@@ -121,5 +143,4 @@ public class UserService
 		userRepository.updateEnableStatus(id, enabled);
 	}
 
-	
 }

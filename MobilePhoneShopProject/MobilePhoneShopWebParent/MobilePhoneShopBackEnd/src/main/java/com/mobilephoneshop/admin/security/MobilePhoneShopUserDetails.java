@@ -14,6 +14,7 @@ import com.mobilephoneshop.common.entity.User;
 
 public class MobilePhoneShopUserDetails implements UserDetails
 {
+	private static final long serialVersionUID = 4180854250821366740L;
 	private User user;
 
 	public MobilePhoneShopUserDetails(User user)
@@ -72,5 +73,15 @@ public class MobilePhoneShopUserDetails implements UserDetails
 	public String getFullName()
 	{
 		return this.user.getLastName() + " " + this.user.getFirstName();
+	}
+	
+	public void setFirstName(String firstName)
+	{
+		this.user.setFirstName(firstName);
+	}
+	
+	public void setLastName(String LastName)
+	{
+		this.user.setLastName(LastName);
 	}
 }

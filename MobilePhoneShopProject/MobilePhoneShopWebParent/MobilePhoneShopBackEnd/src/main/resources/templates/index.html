@@ -1,117 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-	<title>Trang chủ Admin</title>
-	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
-	<link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}">
-	<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
-	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
-	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-</head>
+<head th:replace="fragments :: page_Head('Trang chủ Admin')" />
 <body>
 
 	<!-- Bắt đầu giao diện chính -->
 	<div class="container-fluid">
 
 		<!-- Bắt đầu Header Menu -->
-		<div>
-			<form th:action="@{/logout}" method="post" th:hidden="true" name="logoutForm">
-				<input type="submit" >
-			</form>
-			
-			<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
-
-				<!-- Bắt đầu Logo -->
-				<a class="navbar-brand" th:href="@{/}"> 
-					<img th:src="@{/images/MobilePhoneShopAdminSmall.png}" />
-				</a>
-				<!-- Kết thúc Logo -->
-				
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-
-				<!-- Bắt đầu menu -->
-				<div class="collapse navbar-collapse" id="topNavbar">
-					<ul class="navbar-nav">
-						<li class="nav-item">
-							<a class="nav-link" th:href="@{/users}">Nhân viên</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" th:href="@{/categories}">Phân loại</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" th:href="@{/brands}">Hãng</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" th:href="@{/products}">Sản phẩm</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" th:href="@{/customs}">Khách hàng</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" th:href="@{/shipping}">Vận chuyển</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" th:href="@{/orders}">Đơn hàng</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" th:href="@{/report}">Báo cáo doanh thu</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" th:href="@{/articles}">Trang tin</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" th:href="@{/menus}">Menus</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" th:href="@{/settings}">Chỉnh sửa</a>
-						</li>
-						<li>
-							<span class="fas fa-user fa-2x icon-silver"></span>
-						</li>
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" data-toggle="dropdown" 
-							sec:authentication="principal.fullName">Chỉnh sửa</a>
-							<div class="dropdown-menu">
-								<a class="dropdown-item" href="" id="logoutLink">Đăng xuất</a>
-							</div>
-						</li>
-					</ul>
-				</div>
-				<!-- Kết thúc menu -->
-				
-			</nav>
-		</div>
-		<!-- Kết thúc Header Menu -->
+		<div th:replace="navigation :: menu()"></div>
+		<!-- Kết thúc Header Menu -->		
 
 		<div>
 			<h2>Chào mừng đến với trang admin</h2>
+			Chào mừng
+			<a th:href="@{/account}" sec:authentication="principal.fullName"></a>
+			&nbsp;
+			<span sec:authentication="principal.authorities"></span>
 		</div>
 
 		<!-- Bắt đầu Footer -->
-		<div>
-			<p>Shop bán điện thoại di dộng - Copyright &copy; Nhóm 11</p>
-		</div>
+		<div th:replace="fragments :: footer()"></div>
 		<!-- Kết thúc Footer -->
 
 	</div>
 	<!-- Kết thúc giao diện chính -->
-	
-	<!-- Bắt đầu code javascript -->
-	<script type="text/javascript">
-		$(document).ready(function()
-		{
-			$("#logoutLink").on("click", function(e)
-			{
-				e.preventDefault();
-				document.logoutForm.submit();
-			})
-		});
-	</script>
-	<!-- Kết thúc code javascript -->
 </body>
 </html>

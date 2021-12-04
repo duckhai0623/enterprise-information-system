@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+	<head th:replace="fragments :: page_Head('Xảy ra lỗi!!!')" />
+<body>
+
+	<!-- Bắt đầu giao diện chính -->
+	<div class="container-fluid">
+
+		<!-- Bắt đầu Header Menu -->
+		<div th:replace="navigation :: menu()"></div>
+		<!-- Kết thúc Header Menu -->		
+
+		<div class="m-3">
+			<h2>Một lỗi không ngờ đến đã xảy ra! Vui lòng quay trở lại trang ban đầu hoặc thực hiện thao tác khác</h2>
+		</div>
+
+		<!-- Bắt đầu Footer -->
+		<div th:replace="fragments :: footer()"></div>
+		<!-- Kết thúc Footer -->
+
+	</div>
+	<!-- Kết thúc giao diện chính -->
+</body>
+</html>
