@@ -21,29 +21,8 @@
 			<a th:href="@{/users/export/pdf}" class="fas fa-file-pdf fa-2x icon-red"></a>
 		</div>
 		
-		<!-- Bắt đầu hiển thị thông báo thêm thành công -->
-		<div th:if="${message != null}" class="alert alert-success text-center">
-			[[${message}]]
-		</div>
-		<!-- Kết thúc hiển thị thông báo thêm thành công -->
-		
 		<!-- Bắt đầu form tìm kiếm -->
-		<div>
-			<form th:action="@{/users/page/1}" class="form-inline m-3">
-				<input type="hidden" name="sortField" th:value="${sortField}">
-				<input type="hidden" name="sortDirection" th:value="${sortDirection}">
-				Tìm kiếm:&nbsp;
-				<input type="search" name="keyword" th:value="${keyword}" class="form-control" required>
-				&nbsp;&nbsp;
-				<button type="submit" class="btn btn-primary">
-					<i class="fas fa-search"></i>
-				</button>
-				&nbsp;&nbsp;
-				<button type="button" class="btn btn-secondary" onclick="clearFilter()">
-					<i class="fas fa-eraser"></i>
-				</button>
-			</form>
-		</div>
+		<div th:replace="fragments :: search_form_and_message('/users/page/1')"></div>
 		<!-- Kết thúc form tìm kiếm -->
 		
 		<!-- Bắt đầu tạo bảng chứa thông tin nhân viên (Loại hiển thị toàn bộ thông tin) -->
@@ -52,16 +31,16 @@
 				<thead class="thead-dark">
 					<tr>	
 						<th class="hideable-column">
-							<th th:replace="fragments :: column_Link('id', 'Mã nhân viên', 'tag')">
+							<th th:replace="fragments :: column_Link('/users', 'id', 'Mã nhân viên', 'tag')">
 						</th>
 						<th>Ảnh đại diện</th>
 						<th class="hideable-column">
-							<th th:replace="fragments :: column_Link('email', 'E-mail', 'tag')">
+							<th th:replace="fragments :: column_Link('/users', 'email', 'E-mail', 'tag')">
 						</th>
-						<th th:replace="fragments :: column_Link('lastName', 'Họ lót', 'none')"></th>    
-						<th th:replace="fragments :: column_Link('firstName', 'Tên', 'none')"></th>
+						<th th:replace="fragments :: column_Link('/users', 'lastName', 'Họ lót', 'none')"></th>    
+						<th th:replace="fragments :: column_Link('/users', 'firstName', 'Tên', 'none')"></th>
 						<th>Chức vụ</th>
-						<th th:replace="fragments :: column_Link('enabled', 'Cho phép hoạt động', 'none')"></th>
+						<th th:replace="fragments :: column_Link('/users', 'enabled', 'Cho phép hoạt động', 'none')"></th>
 						<th>Thao tác</th>
 					</tr>
 				</thead>
@@ -77,18 +56,12 @@
 						 <td >[[${user.firstName}]]</td>
 						 <td>[[${user.roles}]]</td>
 						 <td>
-						 	<a th:if="${user.enabled == true}" class="fas fa-check-circle fa-2x icon-green" 
-						 	th:href="@{'/users/' + ${user.id} + '/enabled/false'}" title="Đang hoạt động"></a>
-						 	<a th:if="${user.enabled == false}" class="fas fa-circle fa-2x icon-dark" 
-						 	th:href="@{'/users/' + ${user.id} + '/enabled/true'}" title="Dừng hoạt động"></a>
+						 	<div th:replace="fragments :: status(${user.enabled}, 'user', '/users/' + ${user.id})"></div>
 						 </td>
 						 <td>
-							<a class="fas fa-edit fa-2x icon-green" th:href="@{'/users/edit/' + ${user.id}}"
-							title="Chỉnh sửa thông tin"></a> 
+							<div th:replace="fragments :: edit('user', '/users/edit/' + ${user.id})"></div> 
 								&nbsp;
-							<a class="fas fa-trash fa-2x icon-red link-delete" th:href="@{'/users/delete/' + ${user.id}}"
-							th:userId = "${user.id}" th:userFullName = "${user.lastName} + ' ' + ${user.firstName}"
-							title="Xoá nhân viên"></a> 
+							<div th:replace="fragments :: delete('user', ${user.id}, '/users/delete/' + ${user.id}, true)"></div> 
 						</td>
 					</tr>
 				</tbody>
@@ -108,18 +81,11 @@
 					<div>[[${user.fullName}]]</div>
 					<div>[[${user.roles}]]</div>
 					<div class="mt-2">
-						<a th:if="${user.enabled == true}" class="fas fa-check-circle fa-2x icon-green" 
-						 	th:href="@{'/users/' + ${user.id} + '/enabled/false'}" title="Đang hoạt động"></a>
+						<div th:replace="fragments :: status(${user.enabled}, 'user', '/users/' + ${user.id})"></div>
 						 	&nbsp;
-						<a th:if="${user.enabled == false}" class="fas fa-circle fa-2x icon-dark" 
-						 	th:href="@{'/users/' + ${user.id} + '/enabled/true'}" title="Dừng hoạt động"></a>
-						 	&nbsp;
-						<a class="fas fa-edit fa-2x icon-green" th:href="@{'/users/edit/' + ${user.id}}"
-							title="Chỉnh sửa thông tin"></a> 
+						<div th:replace="fragments :: edit('user', '/users/edit/' + ${user.id})"></div>
 							&nbsp;
-						<a class="fas fa-trash fa-2x icon-red link-delete" th:href="@{'/users/delete/' + ${user.id}}"
-							th:userId = "${user.id}" th:userFullName = "${user.lastName} + ' ' + ${user.firstName}"
-							title="Xoá nhân viên"></a>					
+						<div th:replace="fragments :: delete('user', ${user.id}, '/users/delete/' + ${user.id}, true)"></div>
 					</div>
 				</div>
 				<div>&nbsp;</div>
@@ -127,63 +93,16 @@
 		</div>
 		<!-- Kết thúc tạo bảng chứa thông tin nhân viên (Loại hiển thị ít thông tin) -->
 		
-		<!-- Bắt đầu phần hiển thị từ nhân viên đến nhân viên trong tổng số nhân viên -->
-		<div class="text-center m-1" th:if="${totalItems} > 0">
-			<span>Hiển thị nhân viên từ [[${startCount}]] đến [[${endCount}]] trong tổng [[${totalItems}]] nhân viên</span>
-		</div>
-		<div class="text-center m-1" th:unless="${totalItems} > 0">
-			<span>Không tìm thấy bất kì nhân viên nào</span>
-		</div>
-		<!-- Kết thúc phần hiển thị từ nhân viên đến nhân viên trong tổng số nhân viên -->
-		
-		<!-- Bắt đầu phần điều khiển / chọn số trang -->
-		<div th:if="${totalPages > 1}">
-			<nav>
-			  	<ul class="pagination justify-content-center flex-wrap">
-			  		<li th:class="${currentPage > 1} ? 'page-item' : 'page-item disabled'">
-			  			<a th:replace="fragments :: page_Link(1, 'Trang đầu')"></a>
-			  		</li>
-			    	<li th:class="${currentPage > 1} ? 'page-item' : 'page-item disabled'">
-			    		<a th:replace="fragments :: page_Link(${currentPage - 1}, 'Trang trước')"></a>
-			    	</li>
-			    	<li th:class="${currentPage != i} ? 'page-item' : 'page-item active'" th:each="i : ${#numbers.sequence(1, totalPages)}">
-			    		<a th:replace="fragments :: page_Link(${i}, ${i})"></a>
-			    	</li>
-			 		<li th:class="${currentPage < totalPages} ? 'page-item' : 'page-item disabled'">
-			 			<a th:replace="fragments :: page_Link(${currentPage + 1}, 'Trang kế')"></a>
-			 		</li>
-			 		<li th:class="${currentPage < totalPages} ? 'page-item' : 'page-item disabled'">
-			 			<a th:replace="fragments :: page_Link(${totalPages}, 'Trang cuối')"></a>
-			 		</li>
-				</ul>
-			</nav>
-		</div>
-		<!-- Kết thúc phần điều khiển / chọn số trang -->
+		<!-- Bắt đầu điều khiển / chuyển số trang -->
+		<div th:replace="fragments :: pagination('/users','users')"></div>
+		<!-- Kết thúc điều khiển / chuyển số trang -->				
 
 		<!-- Bắt đầu Footer -->
 		<div th:replace="fragments :: footer()"></div>
 		<!-- Kết thúc Footer -->
 		
 		<!-- Bắt đầu hiện thông báo có thật sự muốn xoá nhân viên-->
-		<div class="modal fade text-center" id="confirmModal">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h4 class="modal-title">Xác nhận muốn xoá</h4>
-						<button type="button" class="close" data-dismiss="modal">&times;</button>					
-					</div>
-
-					<div class="modal-body">
-						<span id="confirmText"></span>
-					</div>
-				
-					<div class="modal-footer">
-						<button type="button" class="btn btn-danger" data-dismiss="modal">Không</button>
-						<a class="btn btn-success" href="" id="yesButton">Xoá</a>
-					</div>
-				</div>
-			</div>
-		</div>
+		<div th:replace="modal_fragments :: confirm_modal"></div>
 		<!-- Kết thúc hiện thông báo có thật sự muốn xoá nhân viên -->
 
 	</div>

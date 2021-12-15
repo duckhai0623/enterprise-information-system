@@ -22,6 +22,7 @@ $(document).ready(function()
 		}
 					
 	});
+		
 });
 
 // Hiện ảnh đại diện lên trang user_form / account_form
@@ -34,4 +35,22 @@ function showImageThumnail(fileInput)
 		$("#thumbnail").attr("src", e.target.result)
 	};
 	reader.readAsDataURL(file);
+}
+
+// Hiện thông báo / message tương ứng
+function showModalDialog(title, message)
+{
+	$("#modalTitle").text(title);
+	$("#modalBody").text(message);
+	$("#modalDialog").modal();			
+}
+
+function showErrorModal(message)
+{
+	showModalDialog("Lỗi", message);	
+}
+
+function showWarningModal(message)
+{
+	showModalDialog("Cảnh báo", message);	
 }

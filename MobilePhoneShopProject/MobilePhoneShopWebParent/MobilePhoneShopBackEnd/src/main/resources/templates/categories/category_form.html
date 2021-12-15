@@ -16,7 +16,7 @@
 		
 		<!-- Bắt đầu form thêm loại hàng -->
 		<form th:action="@{/categories/save}" method="post" style="max-width: 500px; margin: 0 auto"
-			enctype="multipart/form-data" th:object="${category}">
+			enctype="multipart/form-data" th:object="${category}" onsubmit="return checkUnique(this)">
 			<input type="hidden" th:field="*{id}">
 			<div class="border border-secondary rounded p-3">
 				<div class="form-group row">
@@ -74,8 +74,12 @@
 		</form>
 		<!-- Kết thúc form thêm loại hàng -->
 		
+		<!-- Bắt đầu hiện thông báo tên loại hàng hoặc tên riêng bị trùng (thông báo sẽ ẩn cho đến khi submit form)-->
+		<div th:replace="modal_fragments :: modal_dialog"></div>
+		<!-- Kết thúc hiện thông báo tên loại hàng hoặc tên riêng bị trùng -->
+		
 		<!-- Bắt đầu Footer -->
-		<div th:replace="fragments :: footer()"></div>
+		<div th:replace="fragments :: footer"></div>
 		<!-- Kết thúc Footer -->
 
 	</div>
@@ -85,6 +89,32 @@
 	<script type="text/javascript">
 		
 		moduleURL = "[[@{/categories}]]";
+		
+		// Kiểm tra trùng tên loại hàng và tên riêng
+		function checkUnique(form)
+		{
+			categoryId = $("#id").val();
+			categoryName = $("#name").val();
+			categoryAlias = $("#alias").val();
+			csrfValue = $("input[name='_csrf']").val();
+			url = "[[@{/categories/check_unique}]]";
+			params = {id: categoryId, name: categoryName, alias: categoryAlias, _csrf: csrfValue};
+			$.post(url, params, function(response)
+			{
+				if(response == "OK")
+					form.submit();
+				else if (response == "DuplicateName")
+					showWarningModal("Tên loại hàng '"+ categoryName +"' đã tồn tại!")
+					else if (response == "DuplicateAlias")
+						showWarningModal("Tên riêng '"+ categoryAlias +"' đã tồn tại!")
+						else
+				 			showErrorModal("Không tìm thấy response của server");
+			}).fail(function()
+				{
+					showErrorModal("Không thể kết nối tới server!")
+				});
+			return false;			
+		}
 
 	</script>
 	<script th:src="@{/js/common_form.js}"></script>

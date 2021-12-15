@@ -40,16 +40,31 @@ public class FileUploadUtil
 				{
 					try
 					{
-						Files.delete(directoryPath);
+						Files.delete(file);
 					} catch (IOException e)
 					{
 						System.out.println("Không thể xoá file: " + file);
+						e.printStackTrace();
 					}
 				}
 			});
 		} catch (IOException e2)
 		{
 			System.out.println("Không thể liệt kê đường dẫn: " + directoryPath);
+			e2.printStackTrace();
+		}
+	}
+	
+	public static void removeDir(String dir)
+	{
+		cleanDirectory(dir);
+		try
+		{
+			Files.delete(Paths.get(dir));
+			
+		} catch (IOException e)
+		{
+			System.out.println("Không thể xoá đường dẫn: " + dir);
 		}
 	}
 }

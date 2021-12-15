@@ -9,13 +9,14 @@ import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.io.ICsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;
 
+import com.mobilephoneshop.admin.AbstractExporter;
 import com.mobilephoneshop.common.entity.User;
 
 public class UserCsvExporter extends AbstractExporter
 {
 	public void export(List<User> listUsers, HttpServletResponse httpServletResponse) throws IOException
 	{
-		super.setResponseHeader(httpServletResponse, "text/csv", ".csv", "utf-8");
+		super.setResponseHeader(httpServletResponse, "text/csv", ".csv", "utf-8", "nhanVien_");
 		ICsvBeanWriter csvBeanWriter = new CsvBeanWriter(httpServletResponse.getWriter(),
 				CsvPreference.STANDARD_PREFERENCE);
 		String[] csvHeader =

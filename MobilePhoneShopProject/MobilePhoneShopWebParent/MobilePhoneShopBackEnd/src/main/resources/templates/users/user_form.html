@@ -86,30 +86,11 @@
 			</div>
 		</form>
 		<!-- Kết thúc form thêm nhân viên -->
-		
-		<!-- Bắt đầu hiện thông báo Email bị trùng (thông báo sẽ ẩn cho đến khi submit form)-->
-		<div class="modal fade text-center" id="modalDialog">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h4 class="modal-title" id="modalTitle">Cảnh báo</h4>
-						<button type="button" class="close" data-dismiss="modal">&times;</button>					
-					</div>
-
-					<div class="modal-body">
-						<span id="modalBody"></span>
-					</div>
-				
-					<div class="modal-footer">
-						<button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
-					</div>
-				</div>
-			</div>
-		</div>
+		<div th:replace="modal_fragments :: modal_dialog"></div>
 		<!-- Kết thúc hiện thông báo Email bị trùng -->
 		
 		<!-- Bắt đầu Footer -->
-		<div th:replace="fragments :: footer()"></div>
+		<div th:replace="fragments :: footer"></div>
 		<!-- Kết thúc Footer -->
 
 	</div>
@@ -135,22 +116,14 @@
 					form.submit();
 				}
 				else if (response == "Duplicated")
-					showModalDialog("Cảnh báo", "Email đã tồn tại!")
+					showWarningModal("Email đã tồn tại!")
 					else
-						showModalDialog("Lỗi", "Server không thể phản hồi!")
+						showErrorModal("Server không thể phản hồi!")
 			}).fail(function()
 				{
-					showModalDialog("Lỗi", "Không thể kết nối tới server!")					
+					showErrorModal("Không thể kết nối tới server!")					
 				});
 			return false;
-		}
-		
-		// Hiện thông báo / message tương ứng
-		function showModalDialog(title, message)
-		{
-			$("#modalTitle").text(title);
-			$("#modalBody").text(message);
-			$("#modalDialog").modal();			
 		}
 	</script>
 	<script th:src="@{/js/common_form.js}"></script>

@@ -14,6 +14,7 @@ import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
+import com.mobilephoneshop.admin.AbstractExporter;
 import com.mobilephoneshop.common.entity.User;
 
 public class UserPdfExporter extends AbstractExporter
@@ -21,7 +22,7 @@ public class UserPdfExporter extends AbstractExporter
 
 	public void export(List<User> listUsers, HttpServletResponse httpServletResponse) throws IOException
 	{
-		super.setResponseHeader(httpServletResponse, "application/pdf", ".pdf", "windows-1258");
+		super.setResponseHeader(httpServletResponse, "application/pdf", ".pdf", "windows-1258", "nhanVien_");
 		Document document = new Document(PageSize.A4);
 		PdfWriter.getInstance(document, httpServletResponse.getOutputStream());
 		document.open();

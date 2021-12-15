@@ -15,9 +15,9 @@
 <!-- Trang này được tạo ra để tái sử dụng code HTML -->
 <body>
 	<!-- Code truyền fieldName, tên cột-->
-	<th th:fragment="column_Link(fieldName, columnLabel, removeTag)" th:remove="${removeTag}">
+	<th th:fragment="column_Link(moduleURL, fieldName, columnLabel, removeTag)" th:remove="${removeTag}">
 		<a class="text-white" 
-		th:href="@{'/users/page/' + ${currentPage} + '?sortField='+ ${fieldName} +'&sortDirection=' + 
+		th:href="@{${moduleURL} + '/page/' + ${currentPage} + '?sortField='+ ${fieldName} +'&sortDirection=' + 
 		${sortField != fieldName ? sortDirection : reverseSortDirection}
 		+ ${keyword != null ? '&keyword=' + keyword : ''}}">
 			[[${columnLabel}]]
@@ -26,31 +26,109 @@
 		th:class="${sortDirection == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
 	</th>
 	
-	<!-- Code thể hiện trạng thái enabled của categories -->
-	<div th:fragment="category_status">
-	 	<a th:if="${category.enabled == true}" class="fas fa-check-circle fa-2x icon-green" 
-	 	th:href="@{'/categories/' + ${category.id} + '/enabled/false'}" title="Đang hoạt động"></a>
-	 	<a th:if="${category.enabled == false}" class="fas fa-circle fa-2x icon-dark" 
-	 	th:href="@{'/categories/' + ${category.id} + '/enabled/true'}" title="Dừng hoạt động"></a>
+	<!-- Code thể hiện trạng thái enabled -->
+	<div th:fragment="status(enabled, entityName, entityURL)">
+	 	<a th:if="${enabled == true}" class="fas fa-check-circle fa-2x icon-green" 
+	 	th:href="@{${entityURL} + '/enabled/false'}" 
+	 	title="Đang hiển thị(hoạt động)"></a>
+	 	<a th:if="${enabled == false}" class="fas fa-circle fa-2x icon-dark" 
+	 	th:href="@{${entityURL} + '/enabled/true'}" title="Dừng hiển thị(hoạt động)"></a>
 	 </div>
 	
-	<!-- Code thể hiện nút xoá, sửa của categories -->
-	<div th:fragment="category_actions">
-		<a class="fas fa-edit fa-2x icon-green" th:href="@{'/categories/edit/' + ${category.id}}"
-		title="Chỉnh sửa thông tin"></a> 
-			&nbsp;
-		<a class="fas fa-trash fa-2x icon-red link-delete" th:href="@{'/categories/delete/' + ${category.id}}"
-		title="Xoá loại hàng"></a>
+	<!-- Code thể hiện nút sửa -->
+	<div th:fragment="edit(entityName, editURL)" th:remove="tag">
+		<a class="fas fa-edit fa-2x icon-green" th:href="@{${editURL}}" title="Chỉnh sửa thông tin"></a>
 	</div>
+	
+	<!-- Code thể hiện nút xoá -->
+	<div th:fragment="delete(entityName, entityId, deleteURL, visible)" th:remove="tag">
+		<th:block th:if="${visible}")>
+			<a class="fas fa-trash fa-2x icon-red link-delete" th:href="@{${deleteURL}}"
+			th:entityId="${entityId}"
+			title="Xoá"></a>
+		</th:block>
+	</div>
+	
 	<!-- Code truyền số trang và tên nút -->
-	<a th:fragment="page_Link(pageNumber, label)" class="page-link" 
-	th:href="@{'/users/page/' + ${pageNumber} +'?sortField=' + ${sortField} + '&sortDirection=' + ${sortDirection}}">
+	<a th:fragment="page_Link(moduleURL, pageNumber, label)" class="page-link" 
+	th:href="@{${moduleURL} + '/page/' + ${pageNumber} +'?sortField=' + ${sortField} + '&sortDirection=' + ${sortDirection}}">
 		[[${label}]]
 	</a>
 	
 	<!-- Code tạo footer -->
 	<div th:fragment="footer()" class="text-center m-3">
-		<p>Shop bán điện thoại di dộng - Copyright &copy; Nhóm 11</p>
+		<p>Shop bán điện thoại di dộng - Copyright &copy; Nhóm 15</p>
 	</div>
+	
+	<!-- Code điều khiển / chọn số trang -->
+	<div th:fragment="pagination(moduleURL, entityName)" th:remove="tag">
+		<div class="text-center m-1" th:if="${totalItems} > 0">
+			<span>Hiển thị </span>
+			
+			<span th:if="${entityName == 'users'}">nhân viên </span>
+			<span th:if="${entityName == 'categories'}">loại hàng </span>
+			<span th:if="${entityName == 'brands'}">nhãn hiệu </span>
+			
+			<span>từ [[${startCount}]] đến [[${endCount}]] trong tổng [[${totalItems}]] </span>
+			
+			<span th:if="${entityName == 'users'}">nhân viên </span>
+			<span th:if="${entityName == 'categories'}">loại hàng </span>
+			<span th:if="${entityName == 'brands'}">nhãn hiệu </span>
+			
+		</div>
+		<div class="text-center m-1" th:unless="${totalItems} > 0">
+			<span>Không tìm thấy bất kì </span>
+			
+			<span th:if="${entityName == 'users'}">nhân viên </span>
+			<span th:if="${entityName == 'categories'}">loại hàng </span>
+			<span th:if="${entityName == 'brands'}">nhãn hiệu </span>
+			
+			<span>nào</span>
+		</div>
+		
+		<div th:if="${totalPages > 1}">
+			<nav>
+			  	<ul class="pagination justify-content-center flex-wrap">
+			  		<li th:class="${currentPage > 1} ? 'page-item' : 'page-item disabled'">
+			  			<a th:replace="fragments :: page_Link(${moduleURL}, 1, 'Trang đầu')"></a>
+			  		</li>
+			    	<li th:class="${currentPage > 1} ? 'page-item' : 'page-item disabled'">
+			    		<a th:replace="fragments :: page_Link(${moduleURL}, ${currentPage - 1}, 'Trang trước')"></a>
+			    	</li>
+			    	<li th:class="${currentPage != i} ? 'page-item' : 'page-item active'" th:each="i : ${#numbers.sequence(1, totalPages)}">
+			    		<a th:replace="fragments :: page_Link(${moduleURL}, ${i}, ${i})"></a>
+			    	</li>
+			 		<li th:class="${currentPage < totalPages} ? 'page-item' : 'page-item disabled'">
+			 			<a th:replace="fragments :: page_Link(${moduleURL}, ${currentPage + 1}, 'Trang kế')"></a>
+			 		</li>
+			 		<li th:class="${currentPage < totalPages} ? 'page-item' : 'page-item disabled'">
+			 			<a th:replace="fragments :: page_Link(${moduleURL}, ${totalPages}, 'Trang cuối')"></a>
+			 		</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+	
+	<!-- Code Form tìm kiếm -->
+	<div th:fragment="search_form_and_message(moduleURL)">
+		<form th:action="@{${moduleURL}}" class="form-inline m-3">
+			<input type="hidden" name="sortField" th:value="${sortField}">
+			<input type="hidden" name="sortDirection" th:value="${sortDirection}">
+			Tìm kiếm:&nbsp;
+			<input type="search" name="keyword" th:value="${keyword}" class="form-control" required>
+			&nbsp;&nbsp;
+			<button type="submit" class="btn btn-primary">
+				<i class="fas fa-search"></i>
+			</button>
+			&nbsp;&nbsp;
+			<button type="button" class="btn btn-secondary" onclick="clearFilter()">
+				<i class="fas fa-eraser"></i>
+			</button>
+		</form>
+		
+		<div th:if="${message != null}" class="alert alert-success text-center">
+			[[${message}]]
+		</div>
+	</div>	
 </body>
 </html>
