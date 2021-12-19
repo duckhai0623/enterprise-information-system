@@ -33,7 +33,7 @@ public class CategoryService
 		List<Category> findAll = (List<Category>) repository.findAll();
 		return findAll;
 	}
-	
+
 	public List<Category> listByPage(CategoryPageInfo pageInfo, int pageNum, String sortDir, String keyword)
 	{
 		Sort sort = Sort.by("name");
@@ -50,10 +50,10 @@ public class CategoryService
 		List<Category> rootCategories = pageCategories.getContent();
 		pageInfo.setTotalElements(pageCategories.getTotalElements());
 		pageInfo.setTotalPages(pageCategories.getTotalPages());
-		if(keyword != null && !keyword.isEmpty())
+		if (keyword != null && !keyword.isEmpty())
 		{
 			List<Category> searchResult = pageCategories.getContent();
-			for(Category category : searchResult)
+			for (Category category : searchResult)
 				category.setHasChildren(category.getChildren().size() > 0);
 			return searchResult;
 		}
@@ -100,6 +100,13 @@ public class CategoryService
 
 	public Category save(Category category)
 	{
+		Category parent = category.getParent();
+		if(parent!=null)
+		{
+			String allParentIds = parent.getAllParentIds() == null ? "-" : parent.getAllParentIds();
+			allParentIds += String.valueOf(parent.getId() + "-");
+			category.setAllParentIds(allParentIds);
+		}
 		return repository.save(category);
 	}
 

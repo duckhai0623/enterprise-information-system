@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments :: page_Head('Chỉnh sửa thông tin')" />
+<head th:replace="fragments :: page_Head('Chỉnh sửa thông tin','none')" />
 <body>
 
 	<!-- Bắt đầu giao diện chính -->
@@ -98,8 +98,9 @@
 	
 	<!-- Bắt đầu code javascript -->
 	<script type="text/javascript">
-		
+		MAX_FILE_SIZE = 102400; // Kích thước file ảnh tối đa là 100KB
 		moduleURL = "[[@{/users}]]";
+		
 		// Kiểm tra Email đã tồn tại hay chưa?
 		function checkEmailUnique(form)
 		{

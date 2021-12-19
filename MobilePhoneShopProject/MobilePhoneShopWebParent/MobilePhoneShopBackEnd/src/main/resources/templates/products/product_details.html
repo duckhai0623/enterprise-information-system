@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div th:fragment="content" id="divProductDetails">
+	
+		<!-- Bắt đầu hiển thị chi tiết đã tồn tại của sản phẩm -->
+		<th:block th:each="detail, status : ${product.details}">
+			<div class="form-inline" th:id="'divDetail' + ${status.index}">
+				<input type="hidden" name="detailIds" th:value="${detail.id}">
+				<label class="m-3">Tên:</label>
+				<input type="text" class="form-control w-25" name="detailNames" maxlength="255" 
+					th:value="${detail.name}">
+				<label class="m-3">Giá trị:</label>
+				<input type="text" class="form-control w-25" name="detailValues" maxlength="255"
+					th:value="${detail.value}">
+				<a name="linkRemoveDetail" class="btn fas fa-times-circle fa-2x icon-dark"
+					href="javascript:removeDetailSectionById('${previousDivDetailId}')" 
+					title="Xoá ảnh này"></a>
+			</div>
+		</th:block>
+		<!-- Kết thúc hiển thị chi tiết đã tồn tại của sản phẩm -->
+	
+		<!-- Bắt đầu hiển thị chi tiết của sản phẩm -->
+		<div class="form-inline" th:id="'divDetail' + ${#lists.size(product.details)}">
+			<input type="hidden" name="detailIds" value="0">
+			<label class="m-3">Tên:</label>
+			<input type="text" class="form-control w-25" name="detailNames" maxlength="255">
+			<label class="m-3">Giá trị:</label>
+			<input type="text" class="form-control w-25" name="detailValues" maxlength="255">
+		</div>
+		<!-- Kết thúc hiển thị chi tiết của sản phẩm -->
+	</div>
+</body>
+</html>

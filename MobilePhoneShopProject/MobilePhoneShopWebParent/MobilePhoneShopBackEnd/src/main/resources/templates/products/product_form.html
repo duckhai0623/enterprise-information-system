@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<head th:replace="fragments :: page_Head('Thêm sản phẩm','tag')" />
+	<link rel="stylesheet" th:href="@{/richtext/richtext.min.css}">
+	<script th:src="@{/richtext/jquery.richtext.min.js}"></script>
+</head>
+<body>
+
+	<!-- Bắt đầu giao diện chính -->
+	<div class="container-fluid">
+
+		<!-- Bắt đầu Header Menu -->
+		<div th:replace="navigation :: menu()"></div>
+		<!-- Kết thúc Header Menu -->
+
+		<div>
+			<h2>Quản lý sản phẩm | [[${pageTitle}]]</h2>
+		</div>
+		
+		<!-- Bắt đầu form thêm sản phẩm -->
+		<form th:action="@{/products/save}" method="post" onsubmit="return checkUnique(this)"
+			enctype="multipart/form-data"
+			th:object="${product}">
+			<input type="hidden" th:field="*{id}">
+			<input th:if="${product.category != null}" type="hidden" id="categoryId" th:value="${product.category.id}">
+			<div>
+				<!-- Nav tabs -->
+				<ul class="nav nav-tabs" id="myTab" role="tablist">
+					<li class="nav-item">
+				    	<a class="nav-link active" data-toggle="tab" href="#overview" role="tab" >Tổng quan</a>
+				  	</li>
+				  	<li class="nav-item">
+				    	<a class="nav-link" data-toggle="tab" href="#description" role="tab" >Mô tả</a>
+				  	</li>
+				  	<li class="nav-item">
+				    	<a class="nav-link" data-toggle="tab" href="#images" role="tab" >Ảnh</a>
+				  	</li>
+				  	<li class="nav-item">
+				    	<a class="nav-link" data-toggle="tab" href="#details" role="tab" >Chi tiết</a>
+				  	</li>
+				  	<li class="nav-item">
+				    	<a class="nav-link" data-toggle="tab" href="#shipping" role="tab" >Giao hàng</a>
+				  	</li>
+				</ul>
+				
+				<!-- Tab panes -->
+				<div class="tab-content">
+					<div class="tab-pane active p-3" id="overview" role="tabpanel">
+				  		<div th:replace="products/product_overview :: content"></div>
+				  	</div>
+				  	<div class="tab-pane" id="description" role="tabpanel" >
+				  		<th:block sec:authorize="hasAnyAuthority('Nhân viên bán hàng')">
+				  			<div th:replace="products/product_description_read_only :: content"></div>
+				  		</th:block>
+				  		
+				  		<th:block sec:authorize="hasAnyAuthority('Admin', 'Quản lý kho')">
+							<div th:replace="products/product_description :: content"></div>
+						</th:block>
+					</div>
+				  	<div class="tab-pane" id="images" role="tabpanel">
+						<th:block sec:authorize="hasAnyAuthority('Nhân viên bán hàng')">
+							<div th:replace="products/product_images_read_only :: content"></div>
+						</th:block>
+						
+						<th:block sec:authorize="hasAnyAuthority('Admin', 'Quản lý kho')">				  	
+				  			<div th:replace="products/product_images :: content"></div>
+				  		</th:block>
+				  	</div>
+				  	<div class="tab-pane p-3" id="details" role="tabpanel">
+					  	<th:block sec:authorize="hasAnyAuthority('Nhân viên bán hàng')">	
+					  		<div th:replace="products/product_details_read_only :: content"></div>
+					  	</th:block>
+					  	
+					  	<th:block sec:authorize="hasAnyAuthority('Admin', 'Quản lý kho')">	
+					  		<div th:replace="products/product_details :: content"></div>
+					  		<div>
+					  			<input type="button" class="btn btn-secondary" value="Thêm chi tiết mới"
+					  				onclick="addNextDetailSection()">
+					  		</div>
+					  	</th:block>
+				  	</div>
+				  	<div class="tab-pane p-3" id="shipping" role="tabpanel" >
+						<th:block sec:authorize="hasAnyAuthority('Nhân viên bán hàng')">
+							<div th:replace="products/product_shipping_read_only :: content"></div>
+						</th:block>
+						
+						<th:block sec:authorize="hasAnyAuthority('Admin', 'Quản lý kho')">
+							<div th:replace="products/product_shipping :: content"></div>
+						</th:block>
+					</div>
+				</div>
+			</div>
+			
+			<!-- Bắt đầu nút Lưu và Huỷ -->
+			<div class="text-center">
+				<input type="button" value="Hủy" class="btn btn-secondary m-3" id="buttonCancel" />
+				<input type="submit" value="Lưu" class="btn btn-primary" />
+			</div>
+			<!-- Kết thúc phần nút Lưu và Huỷ -->
+			
+		</form>
+		<!-- Kết thúc form thêm sản phẩm -->
+		
+		<!-- Bắt đầu hiện thông báo tên loại hàng hoặc tên riêng bị trùng (thông báo sẽ ẩn cho đến khi submit form)-->
+		<div th:replace="modal_fragments :: modal_dialog"></div>
+		<!-- Kết thúc hiện thông báo tên loại hàng hoặc tên riêng bị trùng -->
+		
+		<!-- Bắt đầu Footer -->
+		<div th:replace="fragments :: footer"></div>
+		<!-- Kết thúc Footer -->
+
+	</div>
+	<!-- Kết thúc giao diện chính -->
+	
+	<!-- Bắt đầu code javascript -->
+	<script type="text/javascript">
+		MAX_FILE_SIZE = 502400; // Kích thước file ảnh tối đa là 500KB
+	
+		moduleURL = "[[@{/products}]]";
+		brandModuleURL = "[[@{/brands}]]";
+		defaultImageThumbnailSrc = "[[@{/images/image-thumbnail.png}]]";
+		checkUniqueUrl = "[[@{/products/check_unique}]]";
+		
+	</script>
+	<script th:src="@{/js/common_form.js}"></script>
+	<script th:src="@{/js/product_form_overview.js}"></script>
+	<script th:src="@{/js/product_form_images.js}"></script>
+	<script th:src="@{/js/product_form_details.js}"></script>
+	<!-- Kết thúc code javascript -->
+
+</body>
+
+
+</html>

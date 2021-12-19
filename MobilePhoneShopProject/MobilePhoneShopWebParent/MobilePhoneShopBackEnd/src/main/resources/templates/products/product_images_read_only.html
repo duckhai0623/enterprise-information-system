@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div th:fragment="content" th:remove="tag">
+		<div class="row">
+		
+			<!-- Bắt đầu tạo form hiện ảnh chính của sản phẩm -->		
+			<div class="col border m-3 p-2">
+				<div>
+					<label>Ảnh chính: [[${product.mainImage}]]</label>
+				</div>
+				<div class="m-2">
+					<img alt="Ảnh chính" th:src="@{${product.mainImagePath}}" class="img-fluid">
+				</div>
+			</div>
+			<!-- Kết thúc tạo form hiện ảnh chính của sản phẩm -->
+			
+			<!-- Bắt đầu hiện ảnh phụ khi bấm nút chỉnh sửa sản phẩm -->
+			<th:block th:each="productImage, status : ${product.images}">
+				<div class="col border m-3 p-2">
+					<div>
+						<label>Ảnh phụ #[[${status.index + 1}]]: [[${productImage.name}]]</label>
+					</div>
+					<div class="m-2">
+						<img alt="Ảnh phụ" th:src="@{${productImage.imagePath}}" class="img-fluid">
+					</div>
+				</div>	
+			</th:block>	  		
+		</div>		
+	</div>
+</body>
+</html>
+
+
+
+
+
+

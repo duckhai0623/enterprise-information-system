@@ -84,4 +84,9 @@ public class MobilePhoneShopUserDetails implements UserDetails
 	{
 		this.user.setLastName(LastName);
 	}
+	
+	public boolean hasRole(String roleName)
+	{
+		return user.hasRole(roleName);
+	}
 }

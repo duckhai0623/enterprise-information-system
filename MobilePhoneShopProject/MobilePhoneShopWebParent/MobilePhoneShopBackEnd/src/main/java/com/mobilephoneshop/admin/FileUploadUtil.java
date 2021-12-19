@@ -7,12 +7,16 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
+import org.slf4j.Logger;
 import org.springframework.web.multipart.MultipartFile;
 
 public class FileUploadUtil
 {
+	private static final Logger LOGGER = org.slf4j.LoggerFactory.getLogger(FileUploadUtil.class);
+	
 	public static void saveFile(String uploadDirectory, String fileName, MultipartFile multipartFile) throws IOException
 	{
+		
 		Path uploadPath = Paths.get(uploadDirectory);
 		if (!Files.exists(uploadPath))
 		{
@@ -43,28 +47,26 @@ public class FileUploadUtil
 						Files.delete(file);
 					} catch (IOException e)
 					{
-						System.out.println("Không thể xoá file: " + file);
-						e.printStackTrace();
+						LOGGER.error("Không thể xoá file: " + file);
 					}
 				}
 			});
 		} catch (IOException e2)
 		{
-			System.out.println("Không thể liệt kê đường dẫn: " + directoryPath);
-			e2.printStackTrace();
+			LOGGER.error("Không thể liệt kê đường dẫn: " + directoryPath);
 		}
 	}
 	
-	public static void removeDir(String dir)
+	public static void removeDir(String directory)
 	{
-		cleanDirectory(dir);
+		cleanDirectory(directory);
 		try
 		{
-			Files.delete(Paths.get(dir));
+			Files.delete(Paths.get(directory));
 			
 		} catch (IOException e)
 		{
-			System.out.println("Không thể xoá đường dẫn: " + dir);
+			LOGGER.error("Không thể xoá đường dẫn: " + directory);
 		}
 	}
 }

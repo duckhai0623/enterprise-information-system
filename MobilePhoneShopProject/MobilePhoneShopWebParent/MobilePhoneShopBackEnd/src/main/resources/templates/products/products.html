@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="fragments :: page_Head('Quản lý sản phẩm','none')" />
+<body>
+
+	<!-- Bắt đầu giao diện chính -->
+	<div class="container-fluid">
+
+		<!-- Bắt đầu Header Menu -->
+		<div th:replace="navigation :: menu()"></div>
+		<!-- Kết thúc Header Menu -->
+
+		<div>
+			<h2>Quản lý sản phẩm</h2>
+			
+			<th:block sec:authorize="hasAnyAuthority('Admin', 'Quản lý kho')"> 
+				<a th:href="@{/products/new}" class="fas fa-folder-plus fa-2x icon-blue"></a>
+				&nbsp; | &nbsp;
+				<!-- <a th:href="@{/brands/export/csv}" class="fas fa-file-csv fa-2x icon-dark"></a>
+				&nbsp; | &nbsp;
+				<a th:href="@{/brands/export/excel}" class="fas fa-file-excel fa-2x icon-green"></a> -->
+			</th:block>
+		</div>
+		
+		<!-- Bắt đầu form tìm kiếm -->
+		<form th:action="@{/products/page/1}" class="form-inline m-3" id="searchForm">
+			<input type="hidden" name="sortField" th:value="${sortField}">
+			<input type="hidden" name="sortDirection" th:value="${sortDirection}">
+			
+			Loại hàng:&nbsp;
+			<select class="form-control" name="categoryId" id="dropdownCategory">
+				<option value="0">Tất cả loại hàng</option>
+				<th:block th:each="category : ${listCategories}">
+					<option th:value="${category.id}" th:selected="(${categoryId} == ${category.id})">
+						[[${category.name}]]
+					</option>
+				</th:block>
+			</select>
+			&nbsp;
+			
+			Tìm kiếm:&nbsp;
+			<input type="search" name="keyword" th:value="${keyword}" class="form-control" required>
+			&nbsp;&nbsp;
+			<button type="submit" class="btn btn-primary">
+				<i class="fas fa-search"></i>
+			</button>
+			&nbsp;&nbsp;
+			<button type="button" class="btn btn-secondary" onclick="clearFilter()">
+				<i class="fas fa-eraser"></i>
+				</button>
+		</form>
+		
+		<div th:if="${message != null}" class="alert alert-success text-center">
+			[[${message}]]
+		</div>
+		<!-- Kết thúc form tìm kiếm -->
+		
+		<!-- Bắt đầu tạo bảng chứa thông tin sản phẩm (Loại hiển thị toàn bộ thông tin) -->
+		<div class="full-details">
+			<table class="table table-bordered table-striped table-hover table-responsive-xl">
+				<thead class="thead-dark">
+					<tr>
+						<th class="hideable-column">	
+							<th th:replace="fragments :: column_Link('/products','id','Mã sản phẩm','tag')">
+						</th>
+						<th>Ảnh chính</th>
+						<th th:replace="fragments :: column_Link('/products','name','Tên sản phẩm','none')"></th>
+						<th class="hideable-column">
+							<th th:replace="fragments :: column_Link('/products','brand','Hãng','tag')">
+						</th>
+						<th class="hideable-column">
+							<th th:replace="fragments :: column_Link('/products','category','Loại hàng','tag')">
+						</th>
+						<th:block sec:authorize="hasAnyAuthority('Admin', 'Quản lý kho')">				
+							<th>Cho phép bán</th>    
+						</th:block>
+						<th>Thao tác</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="product : ${listProducts}">
+						<td class="hideable-column">[[${product.id}]]</td>
+						<td>
+							<img class="img-fluid" th:src="@{${product.mainImagePath}}" style="width: 120px">							
+						</td>
+						<td>
+							<a class="link-detail" th:href="@{'/products/detail/' + ${product.id}}" th:title="${product.name}" >
+								[[${product.shortName}]]
+							</a>
+						</td>
+						<td class="hideable-column">[[${product.brand.name}]]</td>
+						<td class="hideable-column">[[${product.category.name}]]</td>
+						<th:block sec:authorize="hasAnyAuthority('Admin', 'Quản lý kho')">
+							<td>
+							 	<div th:replace="fragments :: status(${product.enabled}, 'product', '/products/' + ${product.id})"></div>
+							</td>
+						</th:block>
+						<td>
+							<a class="fas fa-file-alt fa-2x icon-green link-detail" th:href="@{'/products/detail/' + ${product.id}}"
+								title="Xem chi tiết sản phẩm"></a>
+								&nbsp;
+							<th:block sec:authorize="hasAnyAuthority('Admin', 'Quản lý kho', 'Nhân viên bán hàng')">
+								<div th:replace="fragments :: edit('product', '/products/edit/' + ${product.id})"></div>
+							</th:block>
+							
+							<th:block sec:authorize="hasAnyAuthority('Admin', 'Quản lý kho')"> 
+									&nbsp;
+								<div th:replace="fragments :: delete('product', ${product.id}, '/products/delete/' + ${product.id}, true)"></div>
+							</th:block> 
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!-- Kết thúc tạo bảng chứa thông tin sản phẩm (Loại hiển thị toàn bộ thông tin) -->
+		
+		<!-- Bắt đầu tạo bảng chứa thông tin sản phẩm (Loại hiển thị ít thông tin) -->
+		<div class="less-details">
+			<div th:each="product : ${listProducts}" class="row m-1">
+				<div class="col-4">
+					<img th:src="@{${product.mainImagePath}}" style="width: 100px" class="img-fluid">
+				</div>
+				<div class="col-8">
+					<div>
+						<a class="link-detail" th:href="@{'/products/detail/' + ${product.id}}" th:title="${product.name}" >
+							[[${product.shortName}]]
+						</a>
+					</div>
+					<div class="mt-2">
+						<a class="fas fa-file-alt fa-2x icon-green link-detail" th:href="@{'/products/detail/' + ${product.id}}"
+								title="Xem chi tiết sản phẩm"></a>
+						<th:block sec:authorize="hasAnyAuthority('Admin', 'Quản lý kho', 'Nhân viên bán hàng')">
+								&nbsp;
+							<div th:replace="fragments :: edit('product', '/products/edit/' + ${product.id})"></div>
+						</th:block>
+						<th:block sec:authorize="hasAnyAuthority('Admin', 'Quản lý kho')"> 
+								&nbsp;
+							<div th:replace="fragments :: delete('product', ${product.id}, '/products/delete/' + ${product.id}, true)"></div>
+						</th:block>
+					</div>
+				</div>
+				<div>&nbsp;</div>
+			</div>
+		</div>
+		<!-- Kết thúc tạo bảng chứa thông tin sản phẩm (Loại hiển thị toàn bộ thông tin) -->
+		
+		<!-- Bắt đầu điều khiển / chuyển số trang -->
+		<div th:replace="fragments :: pagination('/products','products')"></div>
+		<!-- Kết thúc điều khiển / chuyển số trang -->
+		
+		<!-- Bắt đầu Footer -->
+		<div th:replace="fragments :: footer()"></div>
+		<!-- Kết thúc Footer -->
+		
+		<!-- Bắt đầu hiện thông báo có thật sự muốn xoá sản phẩm -->
+		<div th:replace="modal_fragments :: confirm_modal"></div>
+		<!-- Kết thúc hiện thông báo có thật sự muốn xoá sản phẩm -->
+		
+		<!-- Bắt đầu hiện bảng chi tiết sản phẩm -->
+		<div class="modal fade" id="detailModal">
+			<div class="modal-dialog modal-xl">
+				<div class="modal-content">
+				
+				</div>
+			</div>
+		</div>
+		<!-- Kết thúc hiện bảng chi tiết sản phẩm -->
+
+	</div>
+	<!-- Kết thúc giao diện chính -->
+	
+	<!-- Bắt đầu code javascript -->
+	<script th:src="@{/js/common_list.js}"></script>
+	<script type="text/javascript">
+		moduleURL = "[[@{/products}]]";
+		$(document).ready(function()
+		{
+			// Hiện thông báo xác nhận muốn xoá
+			$(".link-delete").on("click",function(e)
+			{
+				e.preventDefault();
+				showDeleteConfirmModal($(this), 'product');
+			});
+			
+			// Hiển thị bảng chi tiết sản phẩm
+			$(".link-detail").on("click",function(e)
+			{
+				e.preventDefault();
+				linkDetailUrl = $(this).attr("href");
+				$("#detailModal").modal("show").find(".modal-content").load(linkDetailUrl);
+			});
+			
+			$("#dropdownCategory").on("change",function()
+			{
+				$("#searchForm").submit();
+			});
+		});
+	</script>
+	<!-- Kết thúc code javascript -->
+</body>
+</html>

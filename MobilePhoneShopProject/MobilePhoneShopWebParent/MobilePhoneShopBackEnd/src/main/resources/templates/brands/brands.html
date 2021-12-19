@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments :: page_Head('Quản lý nhãn hiệu')" />
+<head th:replace="fragments :: page_Head('Quản lý hãng','none')" />
 <body>
 
 	<!-- Bắt đầu giao diện chính -->
@@ -11,11 +11,11 @@
 		<!-- Kết thúc Header Menu -->
 
 		<div>
-			<h2>Quản lý nhãn hiệu</h2>
+			<h2>Quản lý hãng</h2>
 			<a th:href="@{/brands/new}" class="fas fa-folder-plus fa-2x icon-blue"></a>
 			&nbsp; | &nbsp;
-			<a th:href="@{/brands/export/csv}" class="fas fa-file-csv fa-2x icon-dark"></a>
-			<!-- &nbsp; | &nbsp;
+			<!-- <a th:href="@{/brands/export/csv}" class="fas fa-file-csv fa-2x icon-dark"></a>
+			&nbsp; | &nbsp;
 			<a th:href="@{/brands/export/excel}" class="fas fa-file-excel fa-2x icon-green"></a> -->
 		</div>
 		
@@ -23,21 +23,21 @@
 		<div th:replace="fragments :: search_form_and_message('/brands/page/1')"></div>
 		<!-- Kết thúc form tìm kiếm -->
 		
-		<!-- Bắt đầu tạo bảng chứa thông tin nhãn hiệu (Loại hiển thị toàn bộ thông tin) -->
+		<!-- Bắt đầu tạo bảng chứa thông tin hãng (Loại hiển thị toàn bộ thông tin) -->
 		<div class="full-details">
 			<table class="table table-bordered table-striped table-hover table-responsive-xl">
 				<thead class="thead-dark">
 					<tr>	
-						<th>Mã nhãn hiệu</th>
+						<th class="hideable-column">Mã hãng</th>
 						<th>Logo</th>
-						<th th:replace="fragments :: column_Link('/brands','name','Tên nhãn hiệu','none')"></th>
+						<th th:replace="fragments :: column_Link('/brands','name','Tên hãng','none')"></th>
 						<th>Loại hàng</th>    
 						<th>Thao tác</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="brand : ${listBrands}">
-						<td>[[${brand.id}]]</td>
+						<td class="hideable-column">[[${brand.id}]]</td>
 						<td>
 							<img th:src="@{${brand.logoPath}}" style="width: 100px" class="img-fluid">
 						</td>
@@ -56,7 +56,26 @@
 				</tbody>
 			</table>
 		</div>
-		<!-- Kết thúc tạo bảng chứa thông tin nhãn hiệu (Loại hiển thị toàn bộ thông tin) -->
+		<!-- Kết thúc tạo bảng chứa thông tin hãng (Loại hiển thị toàn bộ thông tin) -->
+		
+		<!-- Bắt đầu tạo bảng chứa thông tin hãng (Loại hiển thị ít thông tin) -->
+		<div class="less-details">
+			<div th:each="brand : ${listBrands}" class="row m-1">
+				<div class="col-6">
+					<img th:src="@{${brand.logoPath}}" style="width: 100px" class="img-fluid">
+				</div>
+				<div class="col-6">
+					<div>[[${brand.name}]]</div>
+					<div class="mt-2">
+						<div th:replace="fragments :: edit('brand', '/brands/edit/' + ${brand.id})"></div>
+						&nbsp;
+					 	<div th:replace="fragments :: delete('brand', ${brand.id}, '/brands/delete/' + ${brand.id}, true)"></div>
+					</div>
+				</div>
+				<div>&nbsp;</div>
+			</div>
+		</div>
+		<!-- Kết thúc tạo bảng chứa thông tin hãng (Loại hiển thị ít thông tin) -->
 		
 		<!-- Bắt đầu điều khiển / chuyển số trang -->
 		<div th:replace="fragments :: pagination('/brands','brands')"></div>
@@ -66,9 +85,9 @@
 		<div th:replace="fragments :: footer()"></div>
 		<!-- Kết thúc Footer -->
 		
-		<!-- Bắt đầu hiện thông báo có thật sự muốn xoá nhãn hiệu-->
+		<!-- Bắt đầu hiện thông báo có thật sự muốn xoá hãng -->
 		<div th:replace="modal_fragments :: confirm_modal"></div>
-		<!-- Kết thúc hiện thông báo có thật sự muốn xoá nhãn hiệu -->
+		<!-- Kết thúc hiện thông báo có thật sự muốn xoá hãng -->
 
 	</div>
 	<!-- Kết thúc giao diện chính -->

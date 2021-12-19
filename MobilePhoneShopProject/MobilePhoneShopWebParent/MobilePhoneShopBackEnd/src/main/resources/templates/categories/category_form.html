@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments :: page_Head('Thêm loại hàng')" />
+<head th:replace="fragments :: page_Head('Thêm loại hàng','none')" />
 <body>
 
 	<!-- Bắt đầu giao diện chính -->
@@ -88,6 +88,7 @@
 	<!-- Bắt đầu code javascript -->
 	<script type="text/javascript">
 		
+		MAX_FILE_SIZE = 102400; // Kích thước file ảnh tối đa là 100KB
 		moduleURL = "[[@{/categories}]]";
 		
 		// Kiểm tra trùng tên loại hàng và tên riêng

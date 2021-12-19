@@ -1,31 +1,24 @@
-// Khi khởi động trang users_form
+// Khi khởi động trang *_form
 $(document).ready(function()
 {
-	// Ấn nút Hủy thì quay về trang Quản lý nhân viên
+	// Ấn nút Hủy thì quay về trang có đường dẫn là moduleURL
 	$("#buttonCancel").on("click", function()
 	{
 		window.location = moduleURL;			
 	});
 	
-	// Load file ảnh lên trang users_form / account_form
-	$	("#fileImage").change(function()
+	// Load file ảnh lên trang *_form
+	$("#fileImage").change(function()
 	{
-		fileSize = this.files[0].size;
-		if(fileSize > 1048576)
-		{
-			this.setCustomValidity("Bạn phải chọn ảnh có dung lượng bé hơn 1mb!");
-			this.reportValidity();
-		} else
-		{
-			this.setCustomValidity("");
-			showImageThumnail(this);	
-		}
-					
+		if(!checkFileSize(this))
+			return;
+			
+		showImageThumnail(this);
 	});
 		
 });
 
-// Hiện ảnh đại diện lên trang user_form / account_form
+// Hiện ảnh đại diện lên trang *_form
 function showImageThumnail(fileInput)
 {
 	var file = fileInput.files[0];
@@ -35,6 +28,22 @@ function showImageThumnail(fileInput)
 		$("#thumbnail").attr("src", e.target.result)
 	};
 	reader.readAsDataURL(file);
+}
+
+// Kiểm tra kích thước file ảnh
+function checkFileSize(fileInput)
+{
+	fileSize = fileInput.files[0].size;
+	if(fileSize > MAX_FILE_SIZE)
+	{
+		fileInput.setCustomValidity("Bạn phải chọn ảnh có dung lượng bé hơn" + MAX_FILE_SIZE + " bytes!");
+		fileInput.reportValidity();
+		return false;
+	} else
+	{
+		fileInput.setCustomValidity("");
+		return true;
+	}	
 }
 
 // Hiện thông báo / message tương ứng

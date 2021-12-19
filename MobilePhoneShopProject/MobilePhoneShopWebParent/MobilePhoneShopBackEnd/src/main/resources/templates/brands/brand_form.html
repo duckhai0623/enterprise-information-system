@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments :: page_Head('Thêm nhãn hiệu')" />
+<head th:replace="fragments :: page_Head('Thêm nhãn hiệu','none')" />
 <body>
 
 	<!-- Bắt đầu giao diện chính -->
@@ -84,6 +84,7 @@
 	<!-- Bắt đầu code javascript -->
 	<script type="text/javascript">
 		
+		MAX_FILE_SIZE = 102400; // Kích thước file ảnh tối đa là 100KB
 		moduleURL = "[[@{/brands}]]";
 		
 		//Chọn loại hàng cho hãng 
@@ -111,6 +112,7 @@
 			});
 		}
 		
+		// Kiểm tra trùng hãng
 		function checkUnique(form)
 		{
 			brandId = $("#id").val();

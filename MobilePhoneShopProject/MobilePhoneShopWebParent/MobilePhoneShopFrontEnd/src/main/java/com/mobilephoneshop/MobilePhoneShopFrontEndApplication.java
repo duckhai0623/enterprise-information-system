@@ -1,4 +1,4 @@
-package com.mobilephoneshop.sites;
+package com.mobilephoneshop;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

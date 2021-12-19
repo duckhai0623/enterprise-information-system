@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div th:fragment="content" th:remove="tag">
+		
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Chiều dài (mm):</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" th:value="${product.length}"
+						th:readonly="${#authorization.expression('hasAuthority(''Nhân viên bán hàng'')')}" />
+				</div>
+			</div>	
+			
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Chiều rộng (mm):</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" th:value="${product.width}" 
+						th:readonly="${#authorization.expression('hasAuthority(''Nhân viên bán hàng'')')}"/>
+				</div>
+			</div>
+			
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Chiều cao (mm):</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" th:value="${product.height}" 
+						th:readonly="${#authorization.expression('hasAuthority(''Nhân viên bán hàng'')')}"/>
+				</div>
+			</div>
+			
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Cân nặng (g):</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" th:value="${product.weight}" 
+						th:readonly="${#authorization.expression('hasAuthority(''Nhân viên bán hàng'')')}"/>
+				</div>
+			</div>
+			
+	</div>
+</body>
+</html>
+
+
+
+
+
+

@@ -74,7 +74,7 @@ public class BrandController
 
 		model.addAttribute("listCategories", listCategories);
 		model.addAttribute("brand", new Brand());
-		model.addAttribute("pageTitle", "Thêm nhãn hiệu");
+		model.addAttribute("pageTitle", "Thêm hãng");
 		
 		return "brands/brand_form";
 	}
@@ -98,7 +98,7 @@ public class BrandController
 			brandService.save(brand);
 		}
 
-		redirectAttributes.addFlashAttribute("message", "Lưu nhãn hiệu thành công");
+		redirectAttributes.addFlashAttribute("message", "Lưu hãng thành công");
 		return "redirect:/brands";
 	}
 	
@@ -112,7 +112,7 @@ public class BrandController
 			
 			model.addAttribute("brand", brand);
 			model.addAttribute("listCategories", listCategories);
-			model.addAttribute("pageTitle", "Chỉnh sửa nhãn hiệu (id: " + id + ")");
+			model.addAttribute("pageTitle", "Chỉnh sửa hãng (id: " + id + ")");
 			
 			return "brands/brand_form";
 		} catch (BrandNotFoundException e)
@@ -123,7 +123,7 @@ public class BrandController
 	}
 	
 	@GetMapping("/brands/delete/{id}")
-	public String deleteCategory(@PathVariable(name = "id") Integer id, Model model,
+	public String deleteBrand(@PathVariable(name = "id") Integer id, Model model,
 			RedirectAttributes redirectAttributes)
 	{
 		try
@@ -131,7 +131,7 @@ public class BrandController
 			brandService.delete(id);
 			String brandDir = "../brand-logos/" + id;
 			FileUploadUtil.removeDir(brandDir);
-			redirectAttributes.addFlashAttribute("message", "Xoá thành công nhãn hiệu có mã nhãn hiệu = " + id);
+			redirectAttributes.addFlashAttribute("message", "Xoá thành công hãng có mã hãng = " + id);
 		} catch (BrandNotFoundException ex)
 		{
 			redirectAttributes.addFlashAttribute("message", ex.getMessage());

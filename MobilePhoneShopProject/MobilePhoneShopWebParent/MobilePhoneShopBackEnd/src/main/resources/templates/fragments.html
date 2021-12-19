@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <!-- Code tạo header cho file html -->
-<head th:fragment="page_Head(title)">
+<head th:fragment="page_Head(title,remove)" th:remove="${remove}">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 	<title>[[${title}]]</title>
@@ -19,7 +19,8 @@
 		<a class="text-white" 
 		th:href="@{${moduleURL} + '/page/' + ${currentPage} + '?sortField='+ ${fieldName} +'&sortDirection=' + 
 		${sortField != fieldName ? sortDirection : reverseSortDirection}
-		+ ${keyword != null ? '&keyword=' + keyword : ''}}">
+		+ ${keyword != null ? '&keyword=' + keyword : ''} 
+		+ ${categoryId != null ? '&categoryId=' + categoryId : ''}}">
 			[[${columnLabel}]]
 		</a>
 		<span th:if="${sortField == fieldName}" 
@@ -67,13 +68,15 @@
 			
 			<span th:if="${entityName == 'users'}">nhân viên </span>
 			<span th:if="${entityName == 'categories'}">loại hàng </span>
-			<span th:if="${entityName == 'brands'}">nhãn hiệu </span>
+			<span th:if="${entityName == 'brands'}">hãng </span>
+			<span th:if="${entityName == 'products'}">sản phẩm </span>
 			
 			<span>từ [[${startCount}]] đến [[${endCount}]] trong tổng [[${totalItems}]] </span>
 			
 			<span th:if="${entityName == 'users'}">nhân viên </span>
 			<span th:if="${entityName == 'categories'}">loại hàng </span>
-			<span th:if="${entityName == 'brands'}">nhãn hiệu </span>
+			<span th:if="${entityName == 'brands'}">hãng </span>
+			<span th:if="${entityName == 'products'}">sản phẩm </span>
 			
 		</div>
 		<div class="text-center m-1" th:unless="${totalItems} > 0">
@@ -81,7 +84,8 @@
 			
 			<span th:if="${entityName == 'users'}">nhân viên </span>
 			<span th:if="${entityName == 'categories'}">loại hàng </span>
-			<span th:if="${entityName == 'brands'}">nhãn hiệu </span>
+			<span th:if="${entityName == 'brands'}">hãng </span>
+			<span th:if="${entityName == 'products'}">sản phẩm </span>
 			
 			<span>nào</span>
 		</div>
